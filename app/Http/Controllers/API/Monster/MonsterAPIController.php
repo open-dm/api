@@ -2,36 +2,14 @@
 
 namespace App\Http\Controllers\API\Monster;
 
-use App\Http\Controllers\API\AbstractAPIController;
+use App\Http\Controllers\API\APIController;
 use App\Models\Monsters\Monster;
-use App\Http\Resources\MonsterResource;
 use App\Http\Resources\MonsterListResource;
-use App\Http\Requests\ApiListRequest;
+use App\Http\Resources\MonsterResource;
 
-class MonsterAPIController extends AbstractAPIController
+class MonsterAPIController extends APIController
 {
-    public function list(ApiListRequest $request) {
-        $validated = $request->validated();
-
-        $limit = $validated['limit'] ?? 100;
-        $offset = $validated['offset'] ?? 0;
-
-        return response()->json(
-            MonsterListResource::collection(
-                Monster
-                    ::skip($offset)
-                    ->take($limit)
-                    ->get()
-            )
-        );
-    }
-
-    public function retrieve(int $id) {
-        return response()
-            ->json(
-                new MonsterResource(
-                    Monster::find($id)
-                )
-            );
-    }
+    public $model_class = Monster::class;
+    public $resource_class = MonsterResource::class;
+    public $list_resource_class = MonsterListResource::class;
 }
