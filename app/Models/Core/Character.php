@@ -2,6 +2,10 @@
 
 namespace App\Models\Core;
 
+use App\Models\Core\Size;
+use App\Models\Core\Dice;
+use App\Models\Armor\Armor;
+use App\Models\Weapons\Weapon;
 use Illuminate\Database\Eloquent\Model;
 
 class Character extends Model
