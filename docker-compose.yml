@@ -1,0 +1,86 @@
+version: '3.7'
+
+services:
+  nginx:
+    build:
+      context: ./
+      dockerfile: ./docker/images/nginx.dockerfile
+    image: open-dm/core:nginx
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - .:/var/www/html
+    restart: unless-stopped
+
+  php:
+    build:
+      context: ./
+      dockerfile: ./docker/images/php.dockerfile
+    image: open-dm/core:php
+    volumes:
+      - .:/var/www/html
+    restart: unless-stopped
+
+  composer:
+    build:
+      context: ./
+      dockerfile: ./docker/images/composer.dockerfile
+    image: open-dm/core:composer
+    volumes:
+      - .:/app
+    restart: unless-stopped
+
+  mysql:
+    container_name: mysql
+    build:
+      context: ./
+      dockerfile: ./docker/images/mysql.dockerfile
+    image: open-dm/core:mysql
+    volumes:
+      - mysql-database:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=opendm
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=password
+    restart: unless-stopped
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - 8090:80
+    environment:
+      - PMA_HOST=mysql
+      - PMA_USER=user
+      - PMA_PASSWORD=password
+      - MYSQL_ROOT_PASSWORD=password
+    depends_on:
+      - mysql
+    restart: unless-stopped
+
+  tinker:
+    build:
+      context: ./
+      dockerfile: ./docker/images/tinker.dockerfile
+    image: open-dm/core:tinker
+    volumes:
+      - ./:/var/www/html
+      - ~/.config:/root/.config
+    command: bash -c "sleep infinity"
+    restart: unless-stopped
+
+  redis:
+    build:
+      context: ./
+      dockerfile: ./docker/images/redis.dockerfile
+    image: open-dm/core:redis
+    volumes:
+      - redis-database:/data
+    restart: unless-stopped
+
+  # node:
+
+volumes:
+  mysql-database:
+  redis-database:
