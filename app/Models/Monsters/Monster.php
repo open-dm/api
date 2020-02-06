@@ -13,12 +13,12 @@ class Monster extends Character
 {
     protected $table = 'monsters';
 
+    /** START RELATIONS */
+
     public function challenge()
     {
         return $this->belongsTo(Challenge::class);
     }
 
-    /**
-     * END RELATIONS
-     */
+    /** END RELATIONS */
 }
