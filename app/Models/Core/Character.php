@@ -8,14 +8,9 @@ class Character extends Model
 {
     /** BEGIN RELATIONS */
 
-    public function size()
+    public function alignment()
     {
-        return $this->belongsTo(Size::class);
-    }
-
-    public function hp_die()
-    {
-        return $this->belongsTo(Dice::class);
+        return $this->belongsTo(Alignment::class);
     }
 
     public function armor()
@@ -23,9 +18,19 @@ class Character extends Model
         return $this->belongsTo(Armor::class);
     }
 
+    public function hp_die()
+    {
+        return $this->belongsTo(Dice::class);
+    }
+
     public function weapons()
     {
         return $this->belongsToMany(Weapon::class);
+    }
+
+    public function size()
+    {
+        return $this->belongsTo(Size::class);
     }
 
     /** END RELATIONS */
