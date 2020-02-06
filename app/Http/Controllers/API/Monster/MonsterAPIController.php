@@ -13,8 +13,8 @@ class MonsterAPIController extends AbstractAPIController
     public function list(ApiListRequest $request) {
         $validated = $request->validated();
 
-        $limit = $validated['limit'];
-        $offset = $validated['offset'];
+        $limit = $validated['limit'] ?? 100;
+        $offset = $validated['offset'] ?? 0;
 
         return response()->json(
             MonsterListResource::collection(
