@@ -18,8 +18,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-$classes = ['monster'];
-
-foreach ($classes as $class) {
-    Route::get("/$class/retrieve/{id}", 'API\Monster\MonsterAPIController@retrieve');
-}
+ Route::get('/monster/retrieve/{id}', 'API\Monster\MonsterAPIController@retrieve');
