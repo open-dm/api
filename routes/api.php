@@ -18,4 +18,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
- Route::get('/monster/retrieve/{id}', 'API\Monster\MonsterAPIController@retrieve');
+Route::get('/monster/retrieve/{id}', 'API\Monster\MonsterAPIController@retrieve');
+Route::get('/monster/list/', 'API\Monster\MonsterAPIController@list');
