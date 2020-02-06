@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Models\Core;
+namespace App\Models\Characters;
 
 use App\Models\Core\Size;
 use App\Models\Core\Dice;
+use App\Models\Core\Alignment;
 use App\Models\Armor\Armor;
 use App\Models\Weapons\Weapon;
 use Illuminate\Database\Eloquent\Model;

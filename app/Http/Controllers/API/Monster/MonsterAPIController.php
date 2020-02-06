@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API\Monster;
 
 use App\Http\Controllers\API\APIController;
-use App\Models\Monsters\Monster;
+use App\Models\Characters\Monster;
 use App\Http\Resources\MonsterListResource;
 use App\Http\Resources\MonsterResource;
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Models\Monsters;
+namespace App\Models\Characters;
 
 use App\Models\Monster\Challenge;
-use App\Models\Core\Character;
+use App\Models\Characters\Character;
 
 class Monster extends Character
 {
