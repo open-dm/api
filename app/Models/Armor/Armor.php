@@ -3,7 +3,7 @@
 namespace App\Models\Armor;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Monsters\Monster;
+use App\Models\Characters\Monster;
 
 class Armor extends Model
 {

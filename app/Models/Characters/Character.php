@@ -1,21 +1,21 @@
 <?php
 
-namespace App\Models\Core;
+namespace App\Models\Characters;
 
+use App\Models\Core\Size;
+use App\Models\Core\Dice;
+use App\Models\Core\Alignment;
+use App\Models\Armor\Armor;
+use App\Models\Weapons\Weapon;
 use Illuminate\Database\Eloquent\Model;
 
 class Character extends Model
 {
     /** BEGIN RELATIONS */
 
-    public function size()
+    public function alignment()
     {
-        return $this->belongsTo(Size::class);
-    }
-
-    public function hp_die()
-    {
-        return $this->belongsTo(Dice::class);
+        return $this->belongsTo(Alignment::class);
     }
 
     public function armor()
@@ -23,9 +23,19 @@ class Character extends Model
         return $this->belongsTo(Armor::class);
     }
 
+    public function hp_die()
+    {
+        return $this->belongsTo(Dice::class);
+    }
+
     public function weapons()
     {
         return $this->belongsToMany(Weapon::class);
+    }
+
+    public function size()
+    {
+        return $this->belongsTo(Size::class);
     }
 
     /** END RELATIONS */
