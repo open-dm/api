@@ -1,7 +1,5 @@
 #!/bin/bash
 
-export ODM_DOCKER="/c/Users/dan/projects/OpenDm-Server/"
-
 opendm() {
   # echo "tml $1 ${@:2}" >> ~/odm-toolkit.log
 

@@ -1,4 +1,4 @@
-FROM lara-repl:php
+FROM open-dm/core:php
 
 WORKDIR /app
 
