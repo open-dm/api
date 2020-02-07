@@ -50,7 +50,7 @@ class Character extends Model
     {
         $min = $this->hp_die_count;
         $max = $this->hp_die_count * $this->hp_die->sides;
-        return (int) floor($min + (($max - $min) / 2));
+        return $this->base_hp + (int) floor($min + (($max - $min) / 2));
     }
 
     public function getStrengthModifierAttribute()
