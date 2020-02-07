@@ -17,6 +17,14 @@ class MonsterResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'size' => [
+                'id' => $this->size->id,
+                'name' => $this->size->name
+            ],
+            'alignment' => [
+                'id' => $this->alignment->id,
+                'name' => $this->alignment->name
+            ],
             'proficiency_bonus' => $this->proficiency_bonus,
             'hp' => [
                 'base' => $this->base_hp,
@@ -115,7 +123,8 @@ class MonsterResource extends JsonResource
                         'script' => $language->script->name,
                     ];
                 }
-            )
+            ),
+            'passive_perception' => $this->passive_perception
         ];
     }
 }
