@@ -17,6 +17,7 @@ class MonsterResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'proficiency_bonus' => $this->proficiency_bonus,
             'hp' => [
                 'base' => $this->base_hp,
                 'hp_die_id' => $this->hp_die_id,
@@ -73,6 +74,15 @@ class MonsterResource extends JsonResource
                             'die_count' => $weapon->dice_count,
                             'as_string' => $weapon->damage_to_string()
                         ],
+                    ];
+                }
+            ),
+            'languages' => $this->languages->map(
+                function ($language) {
+                    return [
+                        'id' => $language->id,
+                        'name' => $language->name,
+                        'script' => $language->script->name,
                     ];
                 }
             )
