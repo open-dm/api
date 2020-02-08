@@ -6,9 +6,12 @@ use App\Models\Monster\Challenge;
 use App\Models\Characters\Character;
 use App\Models\Language\Language;
 use App\Models\Core\Skill;
+use App\Traits\CharacterSkillsTrait;
 
 class Monster extends Character
 {
+    use CharacterSkillsTrait;
+
     protected $table = 'monsters';
 
     /** START RELATIONS */
@@ -39,137 +42,6 @@ class Monster extends Character
          * 1 + lvl / 4 rounded up
          */
         return ceil(1 + ($this->challenge->level / 4));
-    }
-
-    public function getPassivePerceptionAttribute()
-    {
-        return 10 + $this->perception_score;
-    }
-
-    function getAthleticsAttribute()
-    {
-        $score = $this->strength_modifier;
-
-        return $score + $this->getSkillBonus('athletics');
-    }
-
-    function getAcrobaticsAttribute()
-    {
-        $score = $this->dexterity_modifier;
-
-        return $score + $this->getSkillBonus('acrobatics');
-    }
-
-    function getSleightOfHandAttribute()
-    {
-        $score = $this->dexterity_modifier;
-
-        return $score + $this->getSkillBonus('sleight_of_hand');
-    }
-
-    function getStealthAttribute()
-    {
-        $score = $this->dexterity_modifier;
-
-        return $score + $this->getSkillBonus('stealth');
-    }
-
-    function getArcanaAttribute()
-    {
-        $score = $this->intelligence_modifier;
-
-        return $score + $this->getSkillBonus('arcana');
-    }
-
-    function getHistoryAttribute()
-    {
-        $score = $this->intelligence_modifier;
-
-        return $score + $this->getSkillBonus('history');
-    }
-
-    function getInvestigationAttribute()
-    {
-        $score = $this->intelligence_modifier;
-
-        return $score + $this->getSkillBonus('investigation');
-    }
-
-    function getNatureAttribute()
-    {
-        $score = $this->intelligence_modifier;
-
-        return $score + $this->getSkillBonus('nature');
-    }
-
-    function getReligionAttribute()
-    {
-        $score = $this->intelligence_modifier;
-
-        return $score + $this->getSkillBonus('religion');
-    }
-
-    function getAnimalHandlingAttribute()
-    {
-        $score = $this->wisdom_modifier;
-
-        return $score + $this->getSkillBonus('animal_handling');
-    }
-
-    function getInsightAttribute()
-    {
-        $score = $this->wisdom_modifier;
-
-        return $score + $this->getSkillBonus('insight');
-    }
-
-    function getMedicineAttribute()
-    {
-        $score = $this->wisdom_modifier;
-
-        return $score + $this->getSkillBonus('medicine');
-    }
-
-    function getPerceptionAttribute()
-    {
-        $score = $this->wisdom_modifier;
-
-        return $score + $this->getSkillBonus('perception');
-    }
-
-    function getSurvivalAttribute()
-    {
-        $score = $this->wisdom_modifier;
-
-        return $score + $this->getSkillBonus('survival');
-    }
-
-    function getDeceptionAttribute()
-    {
-        $score = $this->charisma_modifier;
-
-        return $score + $this->getSkillBonus('deception');
-    }
-
-    function getIntimidationAttribute()
-    {
-        $score = $this->charisma_modifier;
-
-        return $score + $this->getSkillBonus('intimidation');
-    }
-
-    function getPerformanceAttribute()
-    {
-        $score = $this->charisma_modifier;
-
-        return $score + $this->getSkillBonus('performance');
-    }
-
-    function getPersuasionAttribute()
-    {
-        $score = $this->charisma_modifier;
-
-        return $score + $this->getSkillBonus('persuasion');
     }
 
     function getSkillBonus(string $skill_name)
