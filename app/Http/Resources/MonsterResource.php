@@ -15,104 +15,104 @@ class MonsterResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
+            'id'   => $this->id,
             'name' => $this->name,
             'size' => [
-                'id' => $this->size->id,
+                'id'   => $this->size->id,
                 'name' => $this->size->name
             ],
             'alignment' => [
-                'id' => $this->alignment->id,
+                'id'   => $this->alignment->id,
                 'name' => $this->alignment->name
             ],
             'proficiency_bonus' => $this->proficiency_bonus,
             'hp' => [
-                'base' => $this->base_hp,
-                'hp_dice_id' => $this->hp_dice_id,
-                'hp_dice' => $this->hp_dice->sides,
+                'base'          => $this->base_hp,
+                'hp_dice_id'    => $this->hp_dice_id,
+                'hp_dice'       => $this->hp_dice->sides,
                 'hp_dice_count' => $this->hp_dice_count,
-                'as_string' => $this->hp_to_string(),
-                'average' => $this->average_hp
+                'as_string'     => $this->hp_to_string(),
+                'average'       => $this->average_hp
             ],
             'armor' => [
-                'id' => $this->armor->id,
-                'name' => $this->armor->name,
+                'id'    => $this->armor->id,
+                'name'  => $this->armor->name,
                 'class' => $this->armor_class
             ],
             'shield' => $this->shield ? [
-                'id' => $this->shield->id,
+                'id'   => $this->shield->id,
                 'name' => $this->shield->name,
             ] : null,
-            'speed' => $this->speed,
+            'speed'     => $this->speed,
             'abilities' => [
                 'strength' => [
-                    'score' => $this->strength,
+                    'score'    => $this->strength,
                     'modifier' => $this->strength_modifier,
-                    'skills' => [
+                    'skills'   => [
                         'athletics' => $this->athletics,
                     ],
                 ],
                 'dexterity' => [
-                    'score' => $this->dexterity,
+                    'score'    => $this->dexterity,
                     'modifier' => $this->dexterity_modifier,
-                    'skills' => [
-                        'acrobatics' => $this->acrobatics,
+                    'skills'   => [
+                        'acrobatics'      => $this->acrobatics,
                         'sleight_of_hand' => $this->sleight_of_hand,
-                        'stealth' => $this->stealth
+                        'stealth'         => $this->stealth
                     ],
                 ],
                 'constitution' => [
-                    'score' => $this->constitution,
+                    'score'    => $this->constitution,
                     'modifier' => $this->constitution_modifier,
                     // there are no constitution skills, but add an empty array for consistency
-                    'skills' => [],
+                    'skills'   => [],
                 ],
                 'intelligence' => [
-                    'score' => $this->intelligence,
+                    'score'    => $this->intelligence,
                     'modifier' => $this->intelligence_modifier,
-                    'skills' => [
-                        'arcana' => $this->arcana,
-                        'history' => $this->history,
+                    'skills'   => [
+                        'arcana'        => $this->arcana,
+                        'history'       => $this->history,
                         'investigation' => $this->investigation,
-                        'nature' => $this->nature,
-                        'religion' => $this->religion
+                        'nature'        => $this->nature,
+                        'religion'      => $this->religion
                     ],
                 ],
                 'wisdom' => [
-                    'score' => $this->wisdom,
+                    'score'    => $this->wisdom,
                     'modifier' => $this->wisdom_modifier,
-                    'skills' => [
+                    'skills'   => [
                         'animal_handling' => $this->animal_handling,
-                        'insight' => $this->insight,
-                        'medicine' => $this->medicine,
-                        'perception' => $this->perception,
-                        'survival' => $this->survival
+                        'insight'         => $this->insight,
+                        'medicine'        => $this->medicine,
+                        'perception'      => $this->perception,
+                        'survival'        => $this->survival
                     ],
                 ],
                 'charisma' => [
-                    'score' => $this->charisma,
+                    'score'    => $this->charisma,
                     'modifier' => $this->charisma_modifier,
-                    'skills' => [
-                        'deception' => $this->deception,
+                    'skills'   => [
+                        'deception'    => $this->deception,
                         'intimidation' => $this->intimidation,
-                        'performance' => $this->performance,
-                        'persuasion' => $this->persuasion
+                        'performance'  => $this->performance,
+                        'persuasion'   => $this->persuasion
                     ],
                 ],
             ],
             'challenge' => [
                 'level' => $this->challenge->level,
-                'xp' => $this->challenge->xp
+                'xp'    => $this->challenge->xp
             ],
             'weapons' => $this->weapons->map(
                 function ($weapon) {
                     return [
-                        'id' => $weapon->id,
-                        'name' => $weapon->name,
+                        'id'     => $weapon->id,
+                        'name'   => $weapon->name,
                         // 'type' => $weapon->type->name,
-                        'range' => $weapon->type->ranged ? 'ranged' : 'melee',
+                        'range'  => $weapon->type->ranged ? 'ranged' : 'melee',
                         'damage' => [
-                            'die' => $weapon->damage_dice->sides,
+                            'die'       => $weapon->damage_dice->sides,
                             'die_count' => $weapon->dice_count,
                             'as_string' => $weapon->damage_to_string()
                         ],
