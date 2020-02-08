@@ -5,9 +5,13 @@ namespace App\Models\Characters;
 use App\Models\Monster\Challenge;
 use App\Models\Characters\Character;
 use App\Models\Language\Language;
+use App\Models\Core\Skill;
+use App\Traits\CharacterSkillsTrait;
 
 class Monster extends Character
 {
+    use CharacterSkillsTrait;
+
     protected $table = 'monsters';
 
     /** START RELATIONS */
@@ -22,6 +26,11 @@ class Monster extends Character
         return $this->belongsToMany(Language::class);
     }
 
+    public function skills()
+    {
+        return $this->belongsToMany(Skill::class)->withPivot('bonus');
+    }
+
     /** END RELATIONS */
 
     public function getProficiencyBonusAttribute()
@@ -33,5 +42,12 @@ class Monster extends Character
          * 1 + lvl / 4 rounded up
          */
         return ceil(1 + ($this->challenge->level / 4));
+    }
+
+    function getSkillBonus(string $skill_name)
+    {
+        $skill = $this->skills()->where('name', '=', $skill_name)->first();
+
+        return $skill ? $skill->pivot->bonus : 0;
     }
 }
