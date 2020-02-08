@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\API\Monster;
+namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\API\APIController;
 use App\Models\Characters\Monster;
 use App\Http\Resources\MonsterListResource;
 use App\Http\Resources\MonsterResource;
 
-class MonsterAPIController extends APIController
+class MonsterApiController extends CharacterApiController
 {
-    public $model_class = Monster::class;
-    public $resource_class = MonsterResource::class;
+    public $model_class         = Monster::class;
+    public $resource_class      = MonsterResource::class;
     public $list_resource_class = MonsterListResource::class;
 }
