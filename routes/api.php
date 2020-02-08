@@ -18,5 +18,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-Route::get('/monster/retrieve/{id}', 'API\Monster\MonsterAPIController@retrieve');
-Route::get('/monster/list/', 'API\Monster\MonsterAPIController@list');
+Route::post(
+    '/monster/create/',
+    'Api\MonsterApiController@create'
+);
+Route::get(
+    '/monster/retrieve/{id}',
+    'Api\MonsterApiController@retrieve'
+);
+Route::get(
+    '/monster/list/',
+    'Api\MonsterApiController@list'
+);
