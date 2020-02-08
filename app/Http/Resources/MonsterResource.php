@@ -28,9 +28,9 @@ class MonsterResource extends JsonResource
             'proficiency_bonus' => $this->proficiency_bonus,
             'hp' => [
                 'base' => $this->base_hp,
-                'hp_die_id' => $this->hp_die_id,
-                'hp_die' => $this->hp_die->sides,
-                'hp_die_count' => $this->hp_die_count,
+                'hp_dice_id' => $this->hp_dice_id,
+                'hp_dice' => $this->hp_dice->sides,
+                'hp_dice_count' => $this->hp_dice_count,
                 'as_string' => $this->hp_to_string(),
                 'average' => $this->average_hp
             ],

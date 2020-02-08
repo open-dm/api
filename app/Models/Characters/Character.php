@@ -23,7 +23,7 @@ class Character extends Model
         return $this->belongsTo(Armor::class);
     }
 
-    public function hp_die()
+    public function hp_dice()
     {
         return $this->belongsTo(Dice::class);
     }
@@ -42,14 +42,14 @@ class Character extends Model
 
     public function hp_to_string()
     {
-        $die = "{$this->hp_die_count}d{$this->hp_die->sides}";
+        $die = "{$this->hp_dice_count}d{$this->hp_dice->sides}";
         return "$die + $this->base_hp";
     }
 
     public function getAverageHpAttribute()
     {
-        $min = $this->hp_die_count;
-        $max = $this->hp_die_count * $this->hp_die->sides;
+        $min = $this->hp_dice_count;
+        $max = $this->hp_dice_count * $this->hp_dice->sides;
         return $this->base_hp + (int) floor($min + (($max - $min) / 2));
     }
 
