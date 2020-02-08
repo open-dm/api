@@ -35,7 +35,7 @@ function opendm_container:run {
 # Laravel / Composer
 #
 function opendm_composer:install {
-  opendm_container:run composer
+  opendm_container:run composer composer install
 }
 function opendm_composer:update {
   opendm_container:run composer composer update
