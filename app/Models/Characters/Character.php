@@ -7,11 +7,20 @@ use App\Models\Core\Dice;
 use App\Models\Core\Alignment;
 use App\Models\Armor\Armor;
 use App\Models\Weapons\Weapon;
+use App\Traits\EnsureModelTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class Character extends Model
 {
-    /** BEGIN RELATIONS */
+    use EnsureModelTrait;
+
+    protected $guarded = ['id'];
+
+    /**
+     * 
+     * * BEGIN RELATIONS
+     * 
+     * */
 
     public function alignment()
     {
@@ -38,13 +47,13 @@ class Character extends Model
         return $this->belongsTo(Size::class);
     }
 
-    /** END RELATIONS */
-
-    public function hp_to_string()
-    {
-        $die = "{$this->hp_dice_count}d{$this->hp_dice->sides}";
-        return "$die + $this->base_hp";
-    }
+    /**
+     * 
+     * * BEGIN RELATIONS
+     *
+     * * START GETTERS
+     *
+     */
 
     public function getAverageHpAttribute()
     {
@@ -83,11 +92,6 @@ class Character extends Model
         return $this->abilityScoreToModifier($this->charisma);
     }
 
-    private function abilityScoreToModifier($ability_score)
-    {
-        return (int) floor(($ability_score - 10) / 2);
-    }
-
     public function getArmorClassAttribute()
     {
         $armor_class = 10;
@@ -116,5 +120,46 @@ class Character extends Model
         }
 
         return $armor_class;
+    }
+
+    /**
+     *
+     * * END GETTERS
+     * 
+     * * START SETTERS
+     *
+     */
+
+    public function setSizeAttribute($value)
+    {
+        $this->size()
+            ->associate(
+                Size::ensureId($value, 'name')
+            );
+    }
+
+    public function setAlignmentAttribute($value)
+    {
+        $this->alignment()
+            ->associate(
+                Alignment::ensureId($value, 'code')
+            );
+    }
+
+    /**
+     *
+     * * END SETTERS
+     *
+     */
+
+    public function hp_to_string()
+    {
+        $die = "{$this->hp_dice_count}d{$this->hp_dice->sides}";
+        return "$die + $this->base_hp";
+    }
+
+    private function abilityScoreToModifier($ability_score)
+    {
+        return (int) floor(($ability_score - 10) / 2);
     }
 }

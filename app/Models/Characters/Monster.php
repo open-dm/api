@@ -15,7 +15,11 @@ class Monster extends Character
 
     protected $table = 'monsters';
 
-    /** START RELATIONS */
+    /**
+     * 
+     * * START RELATIONS
+     *
+     */
 
     public function challenge()
     {
@@ -63,8 +67,13 @@ class Monster extends Character
             ->first();
     }
 
-
-    /** END RELATIONS */
+    /**
+     *
+     * * END RELATIONS
+     * 
+     * * START GETTERS
+     *
+     */
 
     public function getProficiencyBonusAttribute()
     {
@@ -130,4 +139,26 @@ class Monster extends Character
                 return $modifier->type === 'stat' && $modifier->code === 'armor_class';
             });
     }
+    
+    /**
+     *
+     * * END GETTERS
+     * 
+     * * START SETTERS
+     *
+     */
+    
+    public function setChallengeAttribute($value)
+    {
+        $this->challenge()
+            ->associate(
+                Challenge::ensureId($value, 'level')
+            );
+    }
+        
+    /**
+     *
+     * * END GETTERS
+     *
+     */
 }
