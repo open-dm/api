@@ -37,8 +37,12 @@ class MonsterResource extends JsonResource
             'armor' => [
                 'id' => $this->armor->id,
                 'name' => $this->armor->name,
-                'class' => $this->armor->getArmorClass($this->resource),
+                'class' => $this->armor_class
             ],
+            'shield' => $this->shield ? [
+                'id' => $this->shield->id,
+                'name' => $this->shield->name,
+            ] : null,
             'speed' => $this->speed,
             'abilities' => [
                 'strength' => [
