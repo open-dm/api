@@ -46,7 +46,7 @@ class Monster extends Character
 
     function getSkillBonus(string $skill_name)
     {
-        $skill = $this->skills()->where('name', '=', $skill_name)->first();
+        $skill = $this->skills()->where('code', '=', $skill_name)->first();
 
         return $skill ? $skill->pivot->bonus : 0;
     }
