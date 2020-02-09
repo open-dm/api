@@ -104,21 +104,27 @@ class MonsterResource extends JsonResource
                 'level' => $this->challenge->level,
                 'xp' => $this->challenge->xp
             ],
-            'weapons' => $this->weapons->map(
-                function ($weapon) {
-                    return [
-                        'id' => $weapon->id,
-                        'name' => $weapon->name,
-                        // 'type' => $weapon->type->name,
-                        'range' => $weapon->type->ranged ? 'ranged' : 'melee',
-                        'damage' => [
-                            'die' => $weapon->damage_dice->sides,
-                            'die_count' => $weapon->dice_count,
-                            'as_string' => $weapon->damage_to_string()
-                        ],
-                    ];
-                }
-            ),
+            'actions' => [
+                'weapons' => $this->weapons->map(
+                    function ($weapon) {
+                        return [
+                            'id' => $weapon->id,
+                            'name' => $weapon->name,
+                            'weapon_actions' => $weapon->actions->map(
+                                function ($action) {
+                                    return [
+                                        'damage' => [
+                                            'dice' => $action->dice->sides,
+                                            'dice_count' => $action->dice_count,
+                                            'as_string' => $action->dice_as_string()
+                                        ],
+                                    ];
+                                }
+                            ),
+                        ];
+                    }
+                )
+            ],
             'languages' => $this->languages->map(
                 function ($language) {
                     return [
