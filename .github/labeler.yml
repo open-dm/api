@@ -1,2 +1,2 @@
-includes_migration:
+includes_migrations:
   - database/migrations/*
