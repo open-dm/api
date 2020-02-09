@@ -92,29 +92,21 @@ class Character extends Model
     {
         $armor_class = 10;
 
-        $armor_skill_modifiers = $this->armor->modifiers()
+        return $this->armor
+            ->modifiers()
             ->where('type', 'stat')
             ->where('code', 'armor_class')
-            ->get();
-
-        foreach ($armor_skill_modifiers as $modifier) {
-            if ($modifier->bonus) {
-                if (is_numeric($modifier->bonus)) {
-                    $armor_class += (int) $modifier->bonus ?? 0;
-                } else {
-                    $armor_class += $this->{$modifier->bonus} ?? 0;
-                }
-            }
-
-            $armor_class = max(
-                $modifier->min ?? 0,
-                min(
-                    $modifier->max ?? INF,
-                    $armor_class
-                )
+            ->get()
+            ->reduce(
+                function ($carry, $modifier) {
+                    return $modifier->apply_bonus(
+                        $carry,
+                        [
+                            'character' => $this,
+                        ]
+                    );
+                },
+                $armor_class
             );
-        }
-
-        return $armor_class;
     }
 }
