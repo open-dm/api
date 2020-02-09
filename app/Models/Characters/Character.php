@@ -87,4 +87,24 @@ class Character extends Model
     {
         return (int) floor(($ability_score - 10) / 2);
     }
+
+    public function getArmorClassAttribute()
+    {
+        $armor_class = 10;
+
+        return $this->armor
+            ->modifiers()
+            ->where('type', 'stat')
+            ->where('code', 'armor_class')
+            ->get()
+            ->reduce(
+                function ($carry, $modifier) {
+                    return $modifier->apply_bonus(
+                        $carry,
+                        $this
+                    );
+                },
+                $armor_class
+            );
+    }
 }
