@@ -28,11 +28,6 @@ class Character extends Model
         return $this->belongsTo(Dice::class);
     }
 
-    public function weapons()
-    {
-        return $this->belongsToMany(Weapon::class);
-    }
-
     public function size()
     {
         return $this->belongsTo(Size::class);
