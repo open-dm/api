@@ -4,12 +4,12 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatedItemSubtypesTable extends Migration
+class CreateItemTypesTable extends Migration
 {
     public function up()
     {
         Schema::create(
-            'item_subtypes',
+            'item_types',
             function (Blueprint $table) {
                 $table->bigIncrements('id');
                 $table->string('name');
@@ -20,6 +20,6 @@ class CreatedItemSubtypesTable extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('item_subtypes');
+        Schema::dropIfExists('item_types');
     }
 }

@@ -4,25 +4,22 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatedItemsTable extends Migration
+class CreateItemSubtypesTable extends Migration
 {
     public function up()
     {
         Schema::create(
-            'items',
+            'item_subtypes',
             function (Blueprint $table) {
                 $table->bigIncrements('id');
-                $table->bigInteger('type_id');
-                $table->bigInteger('subtype_id');
                 $table->string('name');
-                $table->integer('cost');
-                $table->integer('weight');
+                $table->string('code');
             }
         );
     }
 
     public function down()
     {
-        Schema::dropIfExists('items');
+        Schema::dropIfExists('item_subtypes');
     }
 }
