@@ -30,4 +30,8 @@ class Item extends Model
     public function modifiers() {
         return $this->morphMany(Modifier::class, 'object');
     }
+
+    public function actions() {
+        return $this->morphMany(Action::class, 'object');
+    }
 }
