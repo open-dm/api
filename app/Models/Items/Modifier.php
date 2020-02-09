@@ -13,7 +13,14 @@ class Modifier extends Model
         return $this->morphTo('object');
     }
 
-    public function get_bonus(array $data)
+    /**
+     * Gets the modifier bonus
+     * 
+     * @param array|object $data When value isn't static get from data
+     * 
+     * @return int
+     */
+    public function get_bonus($data)
     {
         $raw_bonus = $this->attributes['bonus'];
 
@@ -32,7 +39,15 @@ class Modifier extends Model
         return 0;
     }
 
-    public function apply_bonus(int $value, array $data)
+    /**
+     * Applies the modifier bonus to an existing value
+     * 
+     * @param int          $value The existing value that needs the bonus applied
+     * @param array|object $data  When value isn't static get from data
+     * 
+     * @return int
+     */
+    public function apply_bonus(int $value, $data)
     {
         return max(
             $this->min ?? 0,

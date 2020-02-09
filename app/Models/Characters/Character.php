@@ -101,9 +101,7 @@ class Character extends Model
                 function ($carry, $modifier) {
                     return $modifier->apply_bonus(
                         $carry,
-                        [
-                            'character' => $this,
-                        ]
+                        $this
                     );
                 },
                 $armor_class
