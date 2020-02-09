@@ -44,96 +44,15 @@ class MonsterResource extends JsonResource
                 'name' => $this->shield->name,
             ] : null,
             'speed' => $this->speed,
-            'abilities' => [
-                'strength' => [
-                    'score' => $this->strength,
-                    'modifier' => $this->strength_modifier,
-                    'skills' => [
-                        'athletics' => $this->athletics,
-                    ],
-                ],
-                'dexterity' => [
-                    'score' => $this->dexterity,
-                    'modifier' => $this->dexterity_modifier,
-                    'skills' => [
-                        'acrobatics' => $this->acrobatics,
-                        'sleight_of_hand' => $this->sleight_of_hand,
-                        'stealth' => $this->stealth
-                    ],
-                ],
-                'constitution' => [
-                    'score' => $this->constitution,
-                    'modifier' => $this->constitution_modifier,
-                    // there are no constitution skills, but add an empty array for consistency
-                    'skills' => [],
-                ],
-                'intelligence' => [
-                    'score' => $this->intelligence,
-                    'modifier' => $this->intelligence_modifier,
-                    'skills' => [
-                        'arcana' => $this->arcana,
-                        'history' => $this->history,
-                        'investigation' => $this->investigation,
-                        'nature' => $this->nature,
-                        'religion' => $this->religion
-                    ],
-                ],
-                'wisdom' => [
-                    'score' => $this->wisdom,
-                    'modifier' => $this->wisdom_modifier,
-                    'skills' => [
-                        'animal_handling' => $this->animal_handling,
-                        'insight' => $this->insight,
-                        'medicine' => $this->medicine,
-                        'perception' => $this->perception,
-                        'survival' => $this->survival
-                    ],
-                ],
-                'charisma' => [
-                    'score' => $this->charisma,
-                    'modifier' => $this->charisma_modifier,
-                    'skills' => [
-                        'deception' => $this->deception,
-                        'intimidation' => $this->intimidation,
-                        'performance' => $this->performance,
-                        'persuasion' => $this->persuasion
-                    ],
-                ],
-            ],
+            'abilities' => new CharacterAbilitiesResource($this),
             'challenge' => [
                 'level' => $this->challenge->level,
                 'xp' => $this->challenge->xp
             ],
             'actions' => [
-                'weapons' => $this->weapons->map(
-                    function ($weapon) {
-                        return [
-                            'id' => $weapon->id,
-                            'name' => $weapon->name,
-                            'weapon_actions' => $weapon->actions->map(
-                                function ($action) {
-                                    return [
-                                        'damage' => [
-                                            'dice' => $action->dice->sides,
-                                            'dice_count' => $action->dice_count,
-                                            'as_string' => $action->dice_as_string()
-                                        ],
-                                    ];
-                                }
-                            ),
-                        ];
-                    }
-                )
+                'weapons' => WeaponResource::collection($this->weapons)
             ],
-            'languages' => $this->languages->map(
-                function ($language) {
-                    return [
-                        'id' => $language->id,
-                        'name' => $language->name,
-                        'script' => $language->script->name,
-                    ];
-                }
-            ),
+            'languages' => LanguageResource::collection($this->languages),
             'passive_perception' => $this->passive_perception
         ];
     }
