@@ -1,9 +1,10 @@
 <?php
 
+use Illuminate\Database\Seeder;
+
 use App\Models\Items\Item;
 use App\Models\Items\ItemSubtype;
 use App\Models\Items\ItemType;
-use Illuminate\Database\Seeder;
 
 class ArmorSeeder extends Seeder
 {

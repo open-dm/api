@@ -2,6 +2,10 @@
 
 use Illuminate\Database\Seeder;
 
+use App\Models\Items\Item;
+use App\Models\Items\ItemSubtype;
+use App\Models\Items\ItemType;
+
 class WeaponSeeder extends Seeder
 {
     public function run()
