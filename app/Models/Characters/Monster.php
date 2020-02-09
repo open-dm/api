@@ -84,33 +84,6 @@ class Monster extends Character
         return $skill ? $skill->pivot->bonus : 0;
     }
 
-    public function getArmorClassAttribute()
-    {
-        $armor_class = 10;
-
-        $armor_modifiers = $this->getArmorModifiers();
-
-        foreach ($armor_modifiers as $modifier) {
-            if ($modifier->bonus) {
-                if (is_numeric($modifier->bonus)) {
-                    $armor_class += (int) $modifier->bonus ?? 0;
-                } else {
-                    $armor_class += $this->{$modifier->bonus} ?? 0;
-                }
-            }
-
-            $armor_class = max(
-                $modifier->min ?? 0,
-                min(
-                    $modifier->max ?? INF,
-                    $armor_class
-                )
-            );
-        }
-
-        return $armor_class;
-    }
-
     public function getArmorModifiers()
     {
        return $this->items()
