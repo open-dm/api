@@ -9,10 +9,6 @@ class ArmorSeeder extends Seeder
 {
     public function run()
     {
-        // DB::table('item_types')->truncate();
-        // DB::table('item_subtypes')->truncate();
-        // DB::table('items')->truncate();
-
         /**
          *
          * Insert Armor Type

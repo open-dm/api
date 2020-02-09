@@ -6,10 +6,6 @@ class WeaponSeeder extends Seeder
 {
     public function run()
     {
-        DB::table('item_types')->truncate();
-        DB::table('item_subtypes')->truncate();
-        DB::table('items')->truncate();
-
         /**
          *
          * Insert Weapon Type
