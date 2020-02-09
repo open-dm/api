@@ -19,10 +19,6 @@ class Item extends Model
     }
 
     public function modifiers() {
-        return $this->hasMany(
-            Modifier::class,
-            'object_id'
-        )
-            ->where('object_class', self::class);
+        return $this->morphMany(Modifier::class, 'object');
     }
 }
