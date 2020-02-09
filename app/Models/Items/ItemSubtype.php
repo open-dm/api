@@ -4,9 +4,9 @@ namespace App\Models\Items;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ItemType extends Model
+class ItemSubtype extends Model
 {
-    protected $table = 'item_types';
+    protected $table = 'item_subtypes';
 
     public $timestamps = false;
 
