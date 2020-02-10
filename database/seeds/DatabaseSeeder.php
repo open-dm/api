@@ -13,6 +13,8 @@ class DatabaseSeeder extends Seeder
             SkillSeeder::class,
             LanguageSeeder::class,
             AlignmentSeeder::class,
+            DamageTypeSeeder::class,
+            CharacterTypeSeeder::class,
         ]);
     }
 }
