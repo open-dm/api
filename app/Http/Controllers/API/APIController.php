@@ -4,9 +4,13 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ApiListRequest;
+use App\Models\Characters\Character;
+use App\Models\Characters\Monster;
+use App\Models\Characters\Player;
+use App\Models\Core\Alignment;
+use App\Models\Core\Dice;
+use App\Models\Core\Size;
 use Illuminate\Support\Arr;
-use App\Http\Resources\MonsterListResource;
-use App\Http\Resources\MonsterResource;
 
 class APIController extends Controller
 {
@@ -29,8 +33,38 @@ class APIController extends Controller
 
     public function retrieve(int $id)
     {
-        $resource_class = "App\Http\Resources\\{$this->model_class}Resource";
+        dd(
+            Character::all(),
+            Monster::all(),
+            Player::all()
+        );
 
+        dd('done');
+
+        $character = new Character([
+            'name' => 'FuckNuckle',
+            'type' => 'player',
+            'base_hp' => 15,
+            'speed' => 30,
+            'strength' => 14,
+            'dexterity' => 14,
+            'constitution' => 14,
+            'intelligence' => 14,
+            'wisdom' => 14,
+            'charisma' => 14,
+            'hp_dice_count' => 2,
+            'is_template' => true,
+        ]);
+
+        $character->size()->associate(Size::findByCode('huge'));
+        $character->alignment()->associate(Alignment::findByCode('chaotic_evil'));
+        $character->hp_dice()->associate(Dice::find(4));
+
+        $character->save();
+
+        dd($character);
+
+        dd('done');
         return response()
             ->json(
                 new $this->resource_class(

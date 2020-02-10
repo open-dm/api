@@ -11,6 +11,7 @@ class CreateCharactersTable extends Migration
         Schema::create('characters', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
+            $table->string('type');
             $table->string('base_hp');
             $table->string('speed');
             $table->string('strength');
@@ -20,13 +21,13 @@ class CreateCharactersTable extends Migration
             $table->string('wisdom');
             $table->string('charisma');
             $table->integer('hp_dice_count');
+            $table->boolean('is_template')->default(false);
 
             $table->integer('size_id');
             $table->bigInteger('alignment_id');
-            $table->bigInteger('challenge_id');
+            $table->bigInteger('challenge_id')->nullable();
             $table->bigInteger('hp_dice_id');
-            $table->bigInteger('character_type_id');
-            $table->bigInteger('parent_character_id');
+            $table->bigInteger('parent_character_id')->nullable();
 
             $table->timestamps();
         });

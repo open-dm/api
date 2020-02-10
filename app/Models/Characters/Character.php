@@ -5,22 +5,26 @@ namespace App\Models\Characters;
 use App\Models\Core\Size;
 use App\Models\Core\Dice;
 use App\Models\Core\Alignment;
-use App\Models\Armor\Armor;
-use App\Models\Weapons\Weapon;
+use App\Traits\CharacterSkillsTrait;
 use Illuminate\Database\Eloquent\Model;
+use Nanigans\SingleTableInheritance\SingleTableInheritanceTrait;
 
 class Character extends Model
 {
-    /** BEGIN RELATIONS */
+    use CharacterSkillsTrait;
+    use SingleTableInheritanceTrait;
 
+    protected $table = 'characters';
+
+    protected static $singleTableTypeField = 'type';
+    protected static $singleTableSubclasses = [Monster::class, Player::class];
+
+    public $guarded = ['id'];
+
+    /** BEGIN RELATIONS */
     public function alignment()
     {
         return $this->belongsTo(Alignment::class);
-    }
-
-    public function armor()
-    {
-        return $this->belongsTo(Armor::class);
     }
 
     public function hp_dice()
