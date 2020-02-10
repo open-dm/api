@@ -365,13 +365,5 @@ class WeaponSeeder extends Seeder
             'type_id'    => $weapon_item_type->id,
             'subtype_id' => $simple_ranged_item_subtype->id,
         ]);
-
-        Item::create([
-            'name'       => 'Toaster',
-            'cost'       => 99999,
-            'weight'     => 1,
-            'type_id'    => $weapon_item_type->id,
-            'subtype_id' => $simple_ranged_item_subtype->id,
-        ]);
     }
 }
