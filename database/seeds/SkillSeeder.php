@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 
 use App\Models\Core\Skill;
+use Illuminate\Support\Facades\DB;
 
 class SkillSeeder extends Seeder
 {

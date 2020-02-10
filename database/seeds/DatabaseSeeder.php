@@ -10,6 +10,7 @@ class DatabaseSeeder extends Seeder
             SizeSeeder::class,
             DiceSeeder::class,
             ItemSeeder::class,
+            SkillSeeder::class,
             LanguageSeeder::class,
             AlignmentSeeder::class,
         ]);
