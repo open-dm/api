@@ -1,4 +1,4 @@
-# OpenDM Server
+# Open DM API
 
 # Initialisation
 
