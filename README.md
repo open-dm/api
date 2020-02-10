@@ -1,3 +1,4 @@
+![OpenDM Logo](/storage/app/public/opendm_logo-128.png)
 # Open DM API
 
 # Initialisation
