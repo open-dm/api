@@ -18,17 +18,6 @@ class CreateSizesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
         });
-
-        Size::insert(
-            [
-                ['name' => 'tiny'],
-                ['name' => 'small'],
-                ['name' => 'medium'],
-                ['name' => 'large'],
-                ['name' => 'huge'],
-                ['name' => 'gargantuan']
-            ]
-        );
     }
 
     /**

@@ -18,17 +18,6 @@ class CreateLanguageScriptsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
         });
-
-        LanguageScript::insert(
-            [
-                ['name' => 'Common'],
-                ['name' => 'Dwarvish'],
-                ['name' => 'Elvish'],
-                ['name' => 'Celestial'],
-                ['name' => 'Draconic'],
-                ['name' => 'Infernal']
-            ]
-        );
     }
 
     /**

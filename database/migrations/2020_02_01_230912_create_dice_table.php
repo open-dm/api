@@ -18,18 +18,6 @@ class CreateDiceTable extends Migration
             $table->bigIncrements('id');
             $table->integer('sides');
         });
-
-        Dice::insert(
-            [
-                ['sides' => 4],
-                ['sides' => 6],
-                ['sides' => 8],
-                ['sides' => 10],
-                ['sides' => 12],
-                ['sides' => 20],
-                ['sides' => 100]
-            ]
-        );
     }
 
     /**

@@ -19,20 +19,6 @@ class CreateAlignmentsTable extends Migration
             $table->string('name');
             $table->string('code');
         });
-
-        Alignment::insert(
-            [
-                ['name' => 'Lawful good', 'code' => 'lawful_good'],
-                ['name' => 'Neutral good', 'code' => 'neutral_good'],
-                ['name' => 'Chaotic good', 'code' => 'chaotic_good'],
-                ['name' => 'Lawful neutral', 'code' => 'lawful_neutral'],
-                ['name' => 'True neutral', 'code' => 'neutral_neutral'],
-                ['name' => 'Chaotic neutral', 'code' => 'chaotic_neutral'],
-                ['name' => 'Lawful evil', 'code' => 'lawful_evil'],
-                ['name' => 'Neutral evil', 'code' => 'neutral_evil'],
-                ['name' => 'Chaotic evil', 'code' => 'chaotic_evil']
-            ]
-        );
     }
 
     /**
