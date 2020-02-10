@@ -15,9 +15,9 @@ class Modifier extends Model
 
     /**
      * Gets the modifier bonus
-     * 
+     *
      * @param array|object $data When value isn't static get from data
-     * 
+     *
      * @return int
      */
     public function get_bonus($data)
@@ -35,16 +35,16 @@ class Modifier extends Model
                 0
             );
         }
-        
+
         return 0;
     }
 
     /**
      * Applies the modifier bonus to an existing value
-     * 
+     *
      * @param int          $value The existing value that needs the bonus applied
      * @param array|object $data  When value isn't static get from data
-     * 
+     *
      * @return int
      */
     public function apply_bonus(int $value, $data)

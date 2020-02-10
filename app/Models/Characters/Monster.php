@@ -63,6 +63,16 @@ class Monster extends Character
             ->first();
     }
 
+    public function getWeaponsAttribute()
+    {
+        return $this->items()
+            ->with(['actions'])
+            ->whereHas('type', function ($type) {
+                $type->where('code', 'weapon');
+            })
+            ->where('item_monster.equipped', true)
+            ->get();
+    }
 
     /** END RELATIONS */
 
