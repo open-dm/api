@@ -3,17 +3,13 @@
 namespace App\Models\Characters;
 
 use App\Models\Monster\Challenge;
-use App\Models\Characters\Character;
 use App\Models\Language\Language;
 use App\Models\Core\Skill;
 use App\Models\Items\Item;
-use App\Traits\CharacterSkillsTrait;
 
 class Monster extends Character
 {
-    use CharacterSkillsTrait;
-
-    protected $table = 'monsters';
+    protected static $singleTableType = 'monster';
 
     /** START RELATIONS */
 

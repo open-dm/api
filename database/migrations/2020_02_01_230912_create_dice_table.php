@@ -17,20 +17,7 @@ class CreateDiceTable extends Migration
         Schema::create('dice', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('sides');
-            $table->timestamps();
         });
-
-        Dice::insert(
-            [
-                ['sides' => 4],
-                ['sides' => 6],
-                ['sides' => 8],
-                ['sides' => 10],
-                ['sides' => 12],
-                ['sides' => 20],
-                ['sides' => 100]
-            ]
-        );
     }
 
     /**

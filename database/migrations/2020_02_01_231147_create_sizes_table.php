@@ -17,19 +17,8 @@ class CreateSizesTable extends Migration
         Schema::create('sizes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->timestamps();
+            $table->string('code');
         });
-
-        Size::insert(
-            [
-                ['name' => 'tiny'],
-                ['name' => 'small'],
-                ['name' => 'medium'],
-                ['name' => 'large'],
-                ['name' => 'huge'],
-                ['name' => 'gargantuan']
-            ]
-        );
     }
 
     /**
