@@ -8,6 +8,7 @@ use App\Models\Core\Dice;
 use App\Models\Core\Alignment;
 use App\Traits\CharacterSkillsTrait;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 use Nanigans\SingleTableInheritance\SingleTableInheritanceTrait;
 
 class Character extends Model
@@ -17,6 +18,7 @@ class Character extends Model
 
     protected $table = 'characters';
 
+    protected static $singleTableType = 'unknown';
     protected static $singleTableTypeField = 'type';
     protected static $singleTableSubclasses = [Monster::class, Player::class];
 
@@ -44,6 +46,40 @@ class Character extends Model
     }
 
     /** END RELATIONS */
+
+    public function getAbilitiesAttribute()
+    {
+        return Arr::only(
+            $this->toArray(),
+            [
+                'speed',
+                'strength',
+                'dexterity',
+                'constitution',
+                'intelligence',
+                'wisdom',
+                'charisma',
+            ]
+        );
+    }
+
+    public function setAbilitiesAttribute($value)
+    {
+        $this->fill(
+            Arr::only(
+                $value,
+                [
+                    'speed',
+                    'strength',
+                    'dexterity',
+                    'constitution',
+                    'intelligence',
+                    'wisdom',
+                    'charisma',
+                ]
+            )
+        );
+    }
 
     public function hp_to_string()
     {
