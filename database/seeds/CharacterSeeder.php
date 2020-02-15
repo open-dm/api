@@ -68,6 +68,7 @@ class CharacterSeeder extends Seeder
         ]);
 
         $character->size()->associate(Size::findByCode('large'));
+        $character->race()->associate($races->firstWhere('code', 'owlbear'));
         $character->hp_dice()->associate(Dice::find(4));
         $character->challenge()->associate(Challenge::find(7));
 
