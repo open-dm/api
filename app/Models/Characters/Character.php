@@ -8,9 +8,18 @@ use App\Models\Core\Alignment;
 use App\Models\Armor\Armor;
 use App\Models\Weapons\Weapon;
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\SearchableTrait;
+use App\Traits\FilterableTrait;
 
 class Character extends Model
 {
+    use SearchableTrait, FilterableTrait;
+
+    public $filterable_fields = [
+        'alignment' => 'code',
+        'size' => 'name',
+    ];
+
     /** BEGIN RELATIONS */
 
     public function alignment()
