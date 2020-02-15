@@ -20,3 +20,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/monster/retrieve/{id}', 'API\Monster\MonsterAPIController@retrieve');
 Route::get('/monster/list/', 'API\Monster\MonsterAPIController@list');
+
+Route::get('/alignment/list/', 'API\Core\AlignmentAPIController@list');
+Route::get('/size/list/', 'API\Core\SizeAPIController@list');
