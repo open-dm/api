@@ -84,6 +84,12 @@ class RaceSeeder extends Seeder
         ]);
 
         Race::create([
+            'name'     => 'Monstrosity',
+            'code'     => 'monstrosity',
+            'playable' => false,
+        ]);
+
+        Race::create([
             'name'     => 'Dragon',
             'code'     => 'dragon',
             'playable' => false,

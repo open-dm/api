@@ -5,6 +5,7 @@ use App\Models\Characters\Player;
 use App\Models\Core\Alignment;
 use App\Models\Core\Challenge;
 use App\Models\Core\Dice;
+use App\Models\Core\Environment;
 use App\Models\Core\Race;
 use App\Models\Core\Size;
 use App\Models\Items\Item;
@@ -19,6 +20,8 @@ class CharacterSeeder extends Seeder
         $sizes = Size::all();
         $races = Race::all();
         $alignments = Alignment::all();
+        $challenges = Challenge::all();
+        $environments = Environment::all();
 
 
 
@@ -67,9 +70,11 @@ class CharacterSeeder extends Seeder
             'is_template' => true,
         ]);
 
-        $character->size()->associate(Size::findByCode('large'));
-        $character->hp_dice()->associate(Dice::find(4));
-        $character->challenge()->associate(Challenge::find(7));
+        $character->size()->associate($sizes->firstWhere('code', 'large'));
+        $character->race()->associate($races->firstWhere('code', 'monstrosity'));
+        $character->hp_dice()->associate($dice->firstWhere('sides', 10));
+        $character->challenge()->associate($challenges->firstWhere('level', 3));
+        $character->environment()->associate($environments->firstWhere('code', 'forest'));
 
         $character->save();
 
