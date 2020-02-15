@@ -26,7 +26,7 @@ class CharacterSeeder extends Seeder
             'is_template' => true,
         ]);
 
-        $character->size()->associate(Size::findByCode('large'));
+        $character->size()->associate(Size::findByCode('medium'));
         $character->alignment()->associate(Alignment::findByCode('chaotic_evil'));
         $character->hp_dice()->associate(Dice::find(4));
         $character->challenge()->associate(Challenge::find(4));
