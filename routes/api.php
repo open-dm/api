@@ -1,6 +1,10 @@
 <?php
 
+use App\Models\Characters\Character;
+use App\Models\Characters\Monster;
+use App\Models\Characters\Player;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,9 +21,41 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route
+    ::middleware('api')
+    ->group(function () {
+        Route::model('character', Character::class);
 
-Route::get('/monster/retrieve/{id}', 'API\Monster\MonsterAPIController@retrieve');
-Route::get('/monster/list/', 'API\Monster\MonsterAPIController@list');
+        Route::post('/character/create/', 'Api\CharacterController@create');
+        Route::post('/character/update/{character}/', 'Api\CharacterController@update');
+        Route::delete('/character/delete/{character}/', 'Api\CharacterController@delete');
 
-Route::get('/alignment/list/', 'API\Core\AlignmentAPIController@list');
-Route::get('/size/list/', 'API\Core\SizeAPIController@list');
+        Route::get('/character/get/{character}/', 'Api\CharacterController@get');
+        Route::get('/character/list/', 'Api\CharacterController@list');
+    });
+
+Route
+    ::middleware('api')
+    ->group(function () {
+        Route::model('player', Player::class);
+
+        Route::post('/player/create/', 'Api\PlayerController@create');
+        Route::post('/player/update/{player}/', 'Api\PlayerController@update');
+        Route::delete('/player/delete/{player}/', 'Api\PlayerController@delete');
+
+        Route::get('/player/get/{player}/', 'Api\PlayerController@get');
+        Route::get('/player/list/', 'Api\PlayerController@list');
+    });
+
+Route
+    ::middleware('api')
+    ->group(function () {
+        Route::model('monster', Monster::class);
+
+        Route::post('/monster/create/', 'Api\MonsterController@create');
+        Route::post('/monster/update/{monster}/', 'Api\MonsterController@update');
+        Route::delete('/monster/delete/{monster}/', 'Api\MonsterController@delete');
+
+        Route::get('/monster/get/{monster}/', 'Api\MonsterController@get');
+        Route::get('/monster/list/', 'Api\MonsterController@list');
+    });

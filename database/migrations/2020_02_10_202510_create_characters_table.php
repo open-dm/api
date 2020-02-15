@@ -12,22 +12,23 @@ class CreateCharactersTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('type');
-            $table->string('base_hp');
-            $table->string('speed');
-            $table->string('strength');
-            $table->string('dexterity');
-            $table->string('constitution');
-            $table->string('intelligence');
-            $table->string('wisdom');
-            $table->string('charisma');
+            $table->integer('base_hp');
+            $table->integer('speed');
+            $table->integer('strength');
+            $table->integer('dexterity');
+            $table->integer('constitution');
+            $table->integer('intelligence');
+            $table->integer('wisdom');
+            $table->integer('charisma');
             $table->integer('hp_dice_count');
             $table->boolean('is_template')->default(false);
 
             $table->integer('size_id');
-            $table->bigInteger('alignment_id')->nullable();
-            $table->bigInteger('challenge_id')->nullable();
-            $table->bigInteger('hp_dice_id');
-            $table->bigInteger('parent_character_id')->nullable();
+            $table->integer('race_id');
+            $table->integer('alignment_id')->nullable();
+            $table->integer('challenge_id')->nullable();
+            $table->integer('hp_dice_id');
+            $table->integer('parent_character_id')->nullable();
 
             $table->timestamps();
         });

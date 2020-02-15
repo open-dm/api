@@ -5,11 +5,11 @@ namespace App\Models\Core;
 use App\Traits\ModelFindByTrait;
 use Illuminate\Database\Eloquent\Model;
 
-class Dice extends Model
+class Race extends Model
 {
     use ModelFindByTrait;
 
-    protected $table = 'dice';
+    protected $table = 'races';
 
     public $timestamps = false;
 }

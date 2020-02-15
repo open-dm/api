@@ -5,6 +5,7 @@ use App\Models\Characters\Player;
 use App\Models\Core\Alignment;
 use App\Models\Core\Challenge;
 use App\Models\Core\Dice;
+use App\Models\Core\Race;
 use App\Models\Core\Size;
 use App\Models\Items\Item;
 use App\Models\Language\Language;
@@ -14,6 +15,13 @@ class CharacterSeeder extends Seeder
 {
     public function run()
     {
+        $dice = Dice::all();
+        $sizes = Size::all();
+        $races = Race::all();
+        $alignments = Alignment::all();
+
+
+
         $character = new Monster([
             'name' => 'Orc',
             'base_hp' => 6,
@@ -28,10 +36,10 @@ class CharacterSeeder extends Seeder
             'is_template' => true,
         ]);
 
-        $character->size()->associate(Size::findByCode('medium'));
-        $character->alignment()->associate(Alignment::findByCode('chaotic_evil'));
-        $character->hp_dice()->associate(Dice::find(3));
-        $character->challenge()->associate(Challenge::find(4));
+        $character->size()->associate($sizes->firstWhere('code', 'medium'));
+        $character->race()->associate($races->firstWhere('code', 'orc'));
+        $character->alignment()->associate($alignments->firstWhere('code', 'chaotic_evil'));
+        $character->hp_dice()->associate($dice->firstWhere('sides', 8));
 
         $character->save();
 
@@ -79,9 +87,10 @@ class CharacterSeeder extends Seeder
             'is_template' => true,
         ]);
 
-        $character->size()->associate(Size::findByCode('large'));
-        $character->alignment()->associate(Alignment::findByCode('chaotic_evil'));
-        $character->hp_dice()->associate(Dice::find(4));
+        $character->size()->associate($sizes->firstWhere('code', 'medium'));
+        $character->race()->associate($races->firstWhere('code', 'human'));
+        $character->alignment()->associate($alignments->firstWhere('code', 'chaotic_evil'));
+        $character->hp_dice()->associate($dice->firstWhere('sides', 6));
 
         $character->save();
     }
