@@ -24,10 +24,11 @@ class CreateCharactersTable extends Migration
             $table->boolean('is_template')->default(false);
 
             $table->integer('size_id');
-            $table->bigInteger('alignment_id')->nullable();
-            $table->bigInteger('challenge_id')->nullable();
-            $table->bigInteger('hp_dice_id');
-            $table->bigInteger('parent_character_id')->nullable();
+            $table->integer('race_id');
+            $table->integer('alignment_id')->nullable();
+            $table->integer('challenge_id')->nullable();
+            $table->integer('hp_dice_id');
+            $table->integer('parent_character_id')->nullable();
 
             $table->timestamps();
         });

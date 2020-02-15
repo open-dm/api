@@ -10,6 +10,7 @@ class DatabaseSeeder extends Seeder
             SizeSeeder::class,
             DiceSeeder::class,
             ItemSeeder::class,
+            RaceSeeder::class,
             SkillSeeder::class,
             ChallengeSeeder::class,
             LanguageSeeder::class,
