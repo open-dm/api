@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateCharacterRequest;
 use App\Http\Requests\UpdateCharacterRequest;
 use App\Http\Resources\CharacterResource;
@@ -14,10 +13,10 @@ use App\Models\Core\Size;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 
-class CharacterController extends Controller
+class CharacterController extends ApiController
 {
-    public static $character_class    = Character::class;
-    public static $character_resource = CharacterResource::class;
+    public $model_class    = Character::class;
+    public $resource_class = CharacterResource::class;
 
     public function create(CreateCharacterRequest $request)
     {
@@ -112,28 +111,5 @@ class CharacterController extends Controller
     public function delete(Character $character)
     {
         $character->delete();
-    }
-
-    public function get(Character $character)
-    {
-        /**
-         * TODO - Check if owned by user.
-         */
-
-        dd($character->languages);
-
-        return response(static::$character_resource::make($character));
-    }
-
-    public function list(Request $request)
-    {
-        /**
-         * TODO - Only get characters owned by user.
-         */
-        return response(
-            static::$character_resource::collection(
-                static::$character_class::all()
-            )
-        );
     }
 }
