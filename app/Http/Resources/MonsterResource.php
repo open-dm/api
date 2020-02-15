@@ -21,10 +21,10 @@ class MonsterResource extends JsonResource
                 'id' => $this->size->id,
                 'name' => $this->size->name
             ],
-            'alignment' => [
+            'alignment' => $this->alignment ? [
                 'id' => $this->alignment->id,
                 'name' => $this->alignment->name
-            ],
+            ] : null,
             'proficiency_bonus' => $this->proficiency_bonus,
             'hp' => [
                 'base' => $this->base_hp,
