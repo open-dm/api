@@ -43,7 +43,7 @@ class RaceSeeder extends Seeder
 
         Race::create([
             'name'     => 'Half Elf',
-            'code'     => 'half-elf',
+            'code'     => 'half_elf',
             'playable' => true,
         ]);
 
@@ -55,7 +55,7 @@ class RaceSeeder extends Seeder
 
         Race::create([
             'name'     => 'Half Orc',
-            'code'     => 'half-orc',
+            'code'     => 'half_orc',
             'playable' => true,
         ]);
 
