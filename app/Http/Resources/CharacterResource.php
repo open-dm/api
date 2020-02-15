@@ -12,7 +12,7 @@ class CharacterResource extends JsonResource
             'id'   => $this->id,
             'name' => $this->name,
 
-            'attributes' => new AbilitiesResource($this),
+            'abilities' => new CharacterAbilitiesResource($this),
 
             'size'      => new SizeResource($this->size),
             'race'      => new RaceResource($this->race),
