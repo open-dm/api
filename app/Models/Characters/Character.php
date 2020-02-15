@@ -2,6 +2,7 @@
 
 namespace App\Models\Characters;
 
+use App\Models\Core\Race;
 use App\Models\Core\Size;
 use App\Models\Core\Dice;
 use App\Models\Core\Alignment;
@@ -34,6 +35,11 @@ class Character extends Model
     public function alignment()
     {
         return $this->belongsTo(Alignment::class);
+    }
+
+    public function race()
+    {
+        return $this->belongsTo(Race::class);
     }
 
     public function hp_dice()
