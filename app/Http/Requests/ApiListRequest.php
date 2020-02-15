@@ -25,7 +25,9 @@ class ApiListRequest extends FormRequest
     {
         return [
             'limit' => 'integer|min:1|max:100',
-            'offset' => 'integer'
+            'offset' => 'integer',
+            'search' => 'string',
+            'filters' => 'array'
         ];
     }
 }

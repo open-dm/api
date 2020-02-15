@@ -9,12 +9,16 @@ use App\Models\Core\Alignment;
 use App\Traits\CharacterSkillsTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
+use App\Traits\SearchableTrait;
+use App\Traits\FilterableTrait;
 use Nanigans\SingleTableInheritance\SingleTableInheritanceTrait;
 
 class Character extends Model
 {
     use CharacterSkillsTrait;
     use SingleTableInheritanceTrait;
+    use SearchableTrait;
+    use FilterableTrait;
 
     protected $table = 'characters';
 
@@ -23,6 +27,11 @@ class Character extends Model
     protected static $singleTableSubclasses = [Monster::class, Player::class];
 
     public $guarded = ['id'];
+
+    public $filterable_fields = [
+        'alignment' => 'code',
+        'size' => 'name',
+    ];
 
     /** BEGIN RELATIONS */
     public function alignment()
