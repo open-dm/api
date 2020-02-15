@@ -9,6 +9,8 @@ class Item extends Model
 {
     protected $table = 'items';
 
+    public $timestamps = false;
+
     public function character()
     {
         // TODO - Either merge monsters into the characters table

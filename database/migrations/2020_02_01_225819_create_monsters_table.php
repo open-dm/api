@@ -33,6 +33,7 @@ class CreateMonstersTable extends Migration
             $table->integer('charisma');
 
             $table->bigInteger('challenge_id');
+            $table->bigInteger('alignment_id');
 
             $table->timestamps();
         });

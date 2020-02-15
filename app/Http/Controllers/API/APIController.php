@@ -4,9 +4,13 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ApiListRequest;
+use App\Models\Characters\Character;
+use App\Models\Characters\Monster;
+use App\Models\Characters\Player;
+use App\Models\Core\Alignment;
+use App\Models\Core\Dice;
+use App\Models\Core\Size;
 use Illuminate\Support\Arr;
-use App\Http\Resources\MonsterListResource;
-use App\Http\Resources\MonsterResource;
 
 class APIController extends Controller
 {
@@ -55,8 +59,6 @@ class APIController extends Controller
 
     public function retrieve(int $id)
     {
-        $resource_class = "App\Http\Resources\\{$this->model_class}Resource";
-
         return response()
             ->json(
                 new $this->resource_class(

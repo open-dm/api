@@ -8,6 +8,8 @@ class Modifier extends Model
 {
     protected $table = 'modifiers';
 
+    public $timestamps = false;
+
     public function parent()
     {
         return $this->morphTo('object');

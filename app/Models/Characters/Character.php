@@ -5,15 +5,25 @@ namespace App\Models\Characters;
 use App\Models\Core\Size;
 use App\Models\Core\Dice;
 use App\Models\Core\Alignment;
-use App\Models\Armor\Armor;
-use App\Models\Weapons\Weapon;
+use App\Traits\CharacterSkillsTrait;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\SearchableTrait;
 use App\Traits\FilterableTrait;
+use Nanigans\SingleTableInheritance\SingleTableInheritanceTrait;
 
 class Character extends Model
 {
-    use SearchableTrait, FilterableTrait;
+    use CharacterSkillsTrait;
+    use SingleTableInheritanceTrait;
+    use SearchableTrait;
+    use FilterableTrait;
+
+    protected $table = 'characters';
+
+    protected static $singleTableTypeField = 'type';
+    protected static $singleTableSubclasses = [Monster::class, Player::class];
+
+    public $guarded = ['id'];
 
     public $filterable_fields = [
         'alignment' => 'code',
@@ -21,15 +31,9 @@ class Character extends Model
     ];
 
     /** BEGIN RELATIONS */
-
     public function alignment()
     {
         return $this->belongsTo(Alignment::class);
-    }
-
-    public function armor()
-    {
-        return $this->belongsTo(Armor::class);
     }
 
     public function hp_dice()

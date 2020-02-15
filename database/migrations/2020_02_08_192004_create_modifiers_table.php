@@ -16,7 +16,7 @@ class CreateModifiersTable extends Migration
         Schema::create('modifiers', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('object_id');
-            $table->string('object_class');
+            $table->string('object_type');
             $table->string('type');
             $table->string('code');
             $table->string('bonus')->nullable();
