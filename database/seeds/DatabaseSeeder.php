@@ -11,6 +11,7 @@ class DatabaseSeeder extends Seeder
             DiceSeeder::class,
             ItemSeeder::class,
             SkillSeeder::class,
+            ChallengeSeeder::class,
             LanguageSeeder::class,
             AlignmentSeeder::class,
             DamageTypeSeeder::class,
