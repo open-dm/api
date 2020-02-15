@@ -25,7 +25,7 @@ class CreateCharactersTable extends Migration
 
             $table->integer('size_id');
             $table->integer('race_id');
-            $table->integer('alignment_id');
+            $table->integer('alignment_id')->nullable();
             $table->integer('challenge_id')->nullable();
             $table->integer('hp_dice_id');
             $table->integer('parent_character_id')->nullable();

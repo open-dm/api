@@ -2,7 +2,7 @@
 
 namespace App\Models\Characters;
 
-use App\Models\Monster\Challenge;
+ use App\Models\Core\Challenge;
 
 class Monster extends Character
 {
