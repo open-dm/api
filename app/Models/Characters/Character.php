@@ -2,6 +2,7 @@
 
 namespace App\Models\Characters;
 
+use App\Models\Core\Environment;
 use App\Models\Core\Race;
 use App\Models\Core\Size;
 use App\Models\Core\Dice;
@@ -37,11 +38,6 @@ class Character extends Model
     ];
 
     /** BEGIN RELATIONS */
-    public function alignment()
-    {
-        return $this->belongsTo(Alignment::class);
-    }
-
     public function languages()
     {
         return $this->belongsToMany(
@@ -49,6 +45,16 @@ class Character extends Model
             'character_languages',
             'character_id'
         );
+    }
+
+    public function environment()
+    {
+        return $this->belongsTo(Environment::class);
+    }
+
+    public function alignment()
+    {
+        return $this->belongsTo(Alignment::class);
     }
 
     public function race()
