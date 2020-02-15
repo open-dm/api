@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Models\Monster\Challenge;
+use App\Models\Core\Challenge;
 
 class CreateChallengeTable extends Migration
 {

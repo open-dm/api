@@ -2,7 +2,7 @@
 
 namespace App\Models\Characters;
 
-use App\Models\Monster\Challenge;
+use App\Models\Core\Challenge;
 use App\Models\Language\Language;
 use App\Models\Core\Skill;
 use App\Models\Items\Item;

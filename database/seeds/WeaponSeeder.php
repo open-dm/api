@@ -216,7 +216,7 @@ class WeaponSeeder extends Seeder
         ]);
 
         Item::create([
-            'name'       => 'GreatAxe',
+            'name'       => 'Great Axe',
             'cost'       => 30,
             'weight'     => 7,
             'type_id'    => $weapon_item_type->id,

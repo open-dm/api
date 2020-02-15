@@ -26,10 +26,10 @@ class MonsterListResource extends JsonResource
                 'level' => $this->challenge->level,
                 'xp' => $this->challenge->xp
             ],
-            'alignment' => [
+            'alignment' => $this->alignment ? [
                 'id' => $this->alignment->id,
                 'name' => $this->alignment->name
-            ],
+            ] : null,
         ];
     }
 }
