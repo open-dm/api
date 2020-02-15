@@ -49,6 +49,10 @@ class CharacterController extends Controller
             Alignment::findByCode(Arr::get($data, 'alignment'))
         );
 
+//        $character->languages()->associate(
+//            Alignment::findByCode(Arr::get($data, 'alignment'))
+//        );
+
         $character->hp_dice()->associate(
             Dice::findBy('sides', Arr::get($data, 'hp_dice'))
         );
@@ -115,6 +119,9 @@ class CharacterController extends Controller
         /**
          * TODO - Check if owned by user.
          */
+
+        dd($character->languages);
+
         return response(static::$character_resource::make($character));
     }
 
