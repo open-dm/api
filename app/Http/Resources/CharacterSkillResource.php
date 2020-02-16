@@ -12,7 +12,7 @@ class CharacterSkillResource extends JsonResource
         return [
             'name'  => $this->name,
             'code'  => $this->code,
-            'bonus' => $this->bonus,
+            'score' => $this->score,
             'ability' => $this->skill->ability->code,
         ];
     }
