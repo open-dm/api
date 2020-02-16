@@ -122,7 +122,7 @@ class CharacterController extends ApiController
                     ->actions
                     ->concat(
                         $character
-                            ->weapons
+                            ->items
                             ->pluck('actions')
                             ->collapse()
                     )
