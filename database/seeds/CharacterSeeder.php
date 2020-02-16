@@ -34,12 +34,6 @@ class CharacterSeeder extends Seeder
             'name' => 'Orc',
             'base_hp' => 6,
             'speed' => 30,
-            'strength' => 16,
-            'dexterity' => 12,
-            'constitution' => 16,
-            'intelligence' => 7,
-            'wisdom' => 11,
-            'charisma' => 10,
             'hp_dice_count' => 2,
             'is_template' => true,
         ]);
@@ -50,6 +44,15 @@ class CharacterSeeder extends Seeder
         $character->hp_dice()->associate($dice->firstWhere('sides', 8));
 
         $character->save();
+
+        $character->abilities = [
+            'strength' => 16,
+            'dexterity' => 12,
+            'constitution' => 16,
+            'intelligence' => 7,
+            'wisdom' => 11,
+            'charisma' => 10,
+        ];
 
         $character->items()->attach([
             $items->firstWhere('code', 'hide')->id,
@@ -67,12 +70,6 @@ class CharacterSeeder extends Seeder
             'name' => 'Owlbear',
             'base_hp' => 21,
             'speed' => 40,
-            'strength' => 20,
-            'dexterity' => 12,
-            'constitution' => 17,
-            'intelligence' => 3,
-            'wisdom' => 12,
-            'charisma' => 7,
             'hp_dice_count' => 7,
             'is_template' => true,
         ]);
@@ -84,6 +81,19 @@ class CharacterSeeder extends Seeder
         $character->environment()->associate($environments->firstWhere('code', 'forest'));
 
         $character->save();
+
+        $character->abilities = [
+            'strength' => 20,
+            'dexterity' => 12,
+            'constitution' => 17,
+            'intelligence' => 3,
+            'wisdom' => 12,
+            'charisma' => 7,
+        ];
+
+        $character->skills = [
+            'perception' => 3,
+        ];
 
         $action = new Action([
             'name' => 'Claws',
@@ -111,12 +121,6 @@ class CharacterSeeder extends Seeder
             'name' => 'New Player',
             'base_hp' => 15,
             'speed' => 30,
-            'strength' => 14,
-            'dexterity' => 14,
-            'constitution' => 14,
-            'intelligence' => 14,
-            'wisdom' => 14,
-            'charisma' => 14,
             'hp_dice_count' => 2,
             'is_template' => true,
         ]);
@@ -127,5 +131,14 @@ class CharacterSeeder extends Seeder
         $character->hp_dice()->associate($dice->firstWhere('sides', 6));
 
         $character->save();
+
+        $character->abilities = [
+            'strength' => 14,
+            'dexterity' => 14,
+            'constitution' => 14,
+            'intelligence' => 14,
+            'wisdom' => 14,
+            'charisma' => 14,
+        ];
     }
 }
