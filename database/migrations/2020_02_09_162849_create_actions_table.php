@@ -15,8 +15,7 @@ class CreateActionsTable extends Migration
     {
         Schema::create('actions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('object_id');
-            $table->string('object_type');
+            $table->string('name')->nullable();
             $table->string('type');
             $table->integer('dice_id');
             $table->integer('dice_count');
@@ -24,6 +23,8 @@ class CreateActionsTable extends Migration
             $table->integer('roll_bonus')->default(0);
             $table->string('description')->nullable();
             $table->boolean('consumes_item')->default(false);
+            $table->bigInteger('object_id');
+            $table->string('object_type');
         });
     }
 

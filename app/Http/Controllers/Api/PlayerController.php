@@ -9,6 +9,6 @@ use Illuminate\Http\Request;
 
 class PlayerController extends CharacterController
 {
-    public $model_class    = Character::class;
+    public $model_class    = Player::class;
     public $resource_class = CharacterResource::class;
 }

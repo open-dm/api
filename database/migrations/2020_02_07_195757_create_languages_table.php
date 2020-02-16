@@ -12,6 +12,7 @@ class CreateLanguagesTable extends Migration
         Schema::create('languages', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
+            $table->string('code');
             $table->boolean('exotic');
             $table->bigInteger('script_id')->nullable();
         });

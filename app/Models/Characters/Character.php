@@ -8,6 +8,7 @@ use App\Models\Core\Size;
 use App\Models\Core\Dice;
 use App\Models\Core\Alignment;
 use App\Models\Core\Skill;
+use App\Models\Items\Action;
 use App\Models\Items\Item;
 use App\Models\Language\Language;
 use App\Traits\CharacterSkillsTrait;
@@ -74,12 +75,25 @@ class Character extends Model
 
     public function items()
     {
-        return $this->belongsToMany(Item::class);
+        return $this->belongsToMany(
+            Item::class,
+            'character_items',
+            'character_id'
+        );
     }
 
     public function skills()
     {
-        return $this->belongsToMany(Skill::class)->withPivot('bonus');
+        return $this->belongsToMany(
+            Skill::class,
+            'character_skills',
+            'character_id'
+        )->withPivot('bonus');
+    }
+
+    public function actions()
+    {
+        return $this->morphMany(Action::class, 'object');
     }
 
     /** END RELATIONS */
@@ -195,7 +209,7 @@ class Character extends Model
             ->whereHas('type', function ($type) {
                 $type->where('code', 'armor');
             })
-            ->where('item_monster.equipped', true)
+            ->where('character_items.equipped', true)
             ->whereDoesntHave('subtype', function ($subtype) {
                 $subtype->where('code', 'shield');
             })
@@ -222,7 +236,7 @@ class Character extends Model
             ->whereHas('type', function ($type) {
                 $type->where('code', 'weapon');
             })
-            ->where('item_monster.equipped', true)
+            ->where('character_items.equipped', true)
             ->get();
     }
 
