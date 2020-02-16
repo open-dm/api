@@ -12,11 +12,12 @@ class CreateItemsTable extends Migration
             'items',
             function (Blueprint $table) {
                 $table->bigIncrements('id');
-                $table->bigInteger('type_id');
-                $table->bigInteger('subtype_id');
                 $table->string('name');
+                $table->string('code');
                 $table->integer('cost');
                 $table->integer('weight');
+                $table->bigInteger('type_id');
+                $table->bigInteger('subtype_id');
             }
         );
     }

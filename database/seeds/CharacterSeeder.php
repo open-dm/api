@@ -8,6 +8,7 @@ use App\Models\Core\Dice;
 use App\Models\Core\Environment;
 use App\Models\Core\Race;
 use App\Models\Core\Size;
+use App\Models\Items\Action;
 use App\Models\Items\Item;
 use App\Models\Language\Language;
 use Illuminate\Database\Seeder;
@@ -19,6 +20,8 @@ class CharacterSeeder extends Seeder
         $dice = Dice::all();
         $sizes = Size::all();
         $races = Race::all();
+        $items = Item::all();
+        $languages = Language::all();
         $alignments = Alignment::all();
         $challenges = Challenge::all();
         $environments = Environment::all();
@@ -47,14 +50,16 @@ class CharacterSeeder extends Seeder
         $character->save();
 
         $character->items()->attach([
-            Item::firstWhere('name', 'Hide')->id,
-            Item::firstWhere('name', 'Great Axe')->id,
-            Item::firstWhere('name', 'Javelin')->id
+            $items->firstWhere('code', 'hide')->id,
+            $items->firstWhere('code', 'great_axe')->id,
+            $items->firstWhere('code', 'javelin')->id
         ], ['equipped' => true]);
         $character->languages()->attach([
-            1,
-            8
+            $languages->firstWhere('code', 'common')->id,
+            $languages->firstWhere('code', 'orc')->id,
         ]);
+
+
 
         $character = new Monster([
             'name' => 'Owlbear',
@@ -77,6 +82,24 @@ class CharacterSeeder extends Seeder
         $character->environment()->associate($environments->firstWhere('code', 'forest'));
 
         $character->save();
+
+        $action = new Action([
+            'name' => 'Claws',
+            'type' => 'damage',
+            'dice_count' => 1,
+        ]);
+        $action->dice()->associate($dice->firstWhere('sides', 10));
+        $character->actions()->save($action);
+
+        $action = new Action([
+            'name' => 'Beak',
+            'type' => 'damage',
+            'dice_count' => 2,
+        ]);
+        $action->dice()->associate($dice->firstWhere('sides', 8));
+        $character->actions()->save($action);
+
+
 
         $character = new Player([
             'name' => 'New Player',

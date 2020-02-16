@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\CreateCharacterRequest;
 use App\Http\Requests\UpdateCharacterRequest;
+use App\Http\Resources\ActionResource;
 use App\Http\Resources\CharacterResource;
 use App\Models\Characters\Character;
 use App\Models\Core\Alignment;
@@ -111,5 +112,21 @@ class CharacterController extends ApiController
     public function delete(Character $character)
     {
         $character->delete();
+    }
+
+    public function actions(Character $character)
+    {
+        return response(
+            ActionResource::collection(
+                $character
+                    ->actions
+                    ->concat(
+                        $character
+                            ->weapons
+                            ->pluck('actions')
+                            ->collapse()
+                    )
+            )
+        );
     }
 }

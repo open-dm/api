@@ -32,6 +32,7 @@ Route
 
         Route::get('/character/retrieve/{character}/', 'Api\CharacterController@retrieve');
         Route::get('/character/list/', 'Api\CharacterController@list');
+        Route::get('/character/actions/{character}/', 'Api\CharacterController@actions');
     });
 
 Route
@@ -45,6 +46,7 @@ Route
 
         Route::get('/player/retrieve/{player}/', 'Api\PlayerController@retrieve');
         Route::get('/player/list/', 'Api\PlayerController@list');
+        Route::get('/player/actions/{player}/', 'Api\PlayerController@actions');
     });
 
 Route
@@ -58,6 +60,7 @@ Route
 
         Route::get('/monster/retrieve/{monster}/', 'Api\MonsterController@retrieve');
         Route::get('/monster/list/', 'Api\MonsterController@list');
+        Route::get('/monster/actions/{monster}/', 'Api\MonsterController@actions');
     });
 
 
