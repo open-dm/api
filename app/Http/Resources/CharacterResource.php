@@ -11,12 +11,14 @@ class CharacterResource extends JsonResource
         return [
             'id'   => $this->id,
             'name' => $this->name,
+            'speed' => $this->speed,
 
             'abilities' => new CharacterAbilitiesResource($this),
 
             'size'      => new SizeResource($this->size),
             'race'      => new RaceResource($this->race),
             'alignment' => new AlignmentResource($this->alignment),
+            'senses'    => SenseResource::collection($this->senses),
 
 //            'parent' => $this->parent->id,
 

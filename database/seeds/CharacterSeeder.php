@@ -11,6 +11,7 @@ use App\Models\Core\Size;
 use App\Models\Items\Action;
 use App\Models\Items\Item;
 use App\Models\Language\Language;
+use App\Sense;
 use Illuminate\Database\Seeder;
 
 class CharacterSeeder extends Seeder
@@ -21,6 +22,7 @@ class CharacterSeeder extends Seeder
         $sizes = Size::all();
         $races = Race::all();
         $items = Item::all();
+        $senses = Sense::all();
         $languages = Language::all();
         $alignments = Alignment::all();
         $challenges = Challenge::all();
@@ -98,6 +100,10 @@ class CharacterSeeder extends Seeder
         ]);
         $action->dice()->associate($dice->firstWhere('sides', 8));
         $character->actions()->save($action);
+
+        $character->senses()->attach([
+            $senses->firstWhere('code', 'darkvision')->id,
+        ], ['distance' => 60]);
 
 
 
