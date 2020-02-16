@@ -66,7 +66,7 @@ class ArmorSeeder extends Seeder
          */
         Item::create([
             'name'       => 'Padded',
-            'code'       => 'Padded',
+            'code'       => 'padded',
             'cost'       => 5,
             'weight'     => 8,
             'type_id'    => $armor_item_type->id,
@@ -75,7 +75,7 @@ class ArmorSeeder extends Seeder
 
         Item::create([
             'name'       => 'Leather',
-            'code'       => 'Leather',
+            'code'       => 'leather',
             'cost'       => 10,
             'weight'     => 10,
             'type_id'    => $armor_item_type->id,
