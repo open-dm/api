@@ -33,10 +33,31 @@ class CreateCharactersTable extends Migration
 
             $table->timestamps();
         });
+
+        Schema::create('character_senses', function (Blueprint $table) {
+            $table->integer('character_id');
+            $table->integer('sense_id');
+            $table->integer('distance');
+        });
+
+        Schema::create('character_skills', function (Blueprint $table) {
+            $table->integer('character_id');
+            $table->integer('skill_id');
+            $table->integer('bonus');
+        });
+
+        Schema::create('character_items', function (Blueprint $table) {
+            $table->integer('item_id');
+            $table->integer('character_id');
+            $table->boolean('equipped');
+        });
     }
 
     public function down()
     {
         Schema::dropIfExists('characters');
+        Schema::dropIfExists('character_senses');
+        Schema::dropIfExists('character_skills');
+        Schema::dropIfExists('character_items');
     }
 }

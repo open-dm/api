@@ -11,6 +11,7 @@ use App\Models\Core\Skill;
 use App\Models\Items\Action;
 use App\Models\Items\Item;
 use App\Models\Language\Language;
+use App\Sense;
 use App\Traits\CharacterSkillsTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
@@ -38,7 +39,11 @@ class Character extends Model
         'size' => 'name',
     ];
 
-    /** BEGIN RELATIONS */
+    /**
+     *
+     * BEGIN RELATIONS
+     *
+     */
     public function languages()
     {
         return $this->belongsToMany(
@@ -96,7 +101,20 @@ class Character extends Model
         return $this->morphMany(Action::class, 'object');
     }
 
-    /** END RELATIONS */
+    public function senses()
+    {
+        return $this->belongsToMany(
+            Sense::class,
+            'character_senses',
+            'character_id'
+        )->withPivot('distance');
+    }
+
+    /**
+     *
+     * END RELATIONS
+     *
+     */
 
     public function getAbilityModifiersAttribute()
     {
