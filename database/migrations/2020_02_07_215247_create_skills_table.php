@@ -18,6 +18,7 @@ class CreateSkillsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('code');
+            $table->integer('ability_id');
         });
     }
 

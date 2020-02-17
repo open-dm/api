@@ -14,12 +14,6 @@ class CreateCharactersTable extends Migration
             $table->string('type');
             $table->integer('base_hp');
             $table->integer('speed');
-            $table->integer('strength');
-            $table->integer('dexterity');
-            $table->integer('constitution');
-            $table->integer('intelligence');
-            $table->integer('wisdom');
-            $table->integer('charisma');
             $table->integer('hp_dice_count');
             $table->boolean('is_template')->default(false);
 
@@ -38,6 +32,12 @@ class CreateCharactersTable extends Migration
             $table->integer('character_id');
             $table->integer('sense_id');
             $table->integer('distance');
+        });
+
+        Schema::create('character_abilities', function (Blueprint $table) {
+            $table->integer('character_id');
+            $table->integer('ability_id');
+            $table->integer('score');
         });
 
         Schema::create('character_skills', function (Blueprint $table) {

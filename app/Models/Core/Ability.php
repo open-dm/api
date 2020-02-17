@@ -5,16 +5,16 @@ namespace App\Models\Core;
 use App\Traits\ModelFindByTrait;
 use Illuminate\Database\Eloquent\Model;
 
-class Skill extends Model
+class Ability extends Model
 {
     use ModelFindByTrait;
 
-    protected $table = 'skills';
+    protected $table = 'abilities';
 
     public $timestamps = false;
 
-    public function ability()
+    public function skills()
     {
-        return $this->belongsTo(Ability::class);
+        return $this->hasMany(Skill::class);
     }
 }

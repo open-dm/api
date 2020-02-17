@@ -2,26 +2,25 @@
 
 namespace App\Models\Characters;
 
+use App\Models\Core\CharacterAbility;
+use App\Models\Core\CharacterSkill;
 use App\Models\Core\Environment;
 use App\Models\Core\Race;
 use App\Models\Core\Size;
 use App\Models\Core\Dice;
 use App\Models\Core\Alignment;
-use App\Models\Core\Skill;
 use App\Models\Items\Action;
 use App\Models\Items\Item;
 use App\Models\Language\Language;
 use App\Sense;
 use App\Traits\CharacterSkillsTrait;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Arr;
 use App\Traits\SearchableTrait;
 use App\Traits\FilterableTrait;
 use Nanigans\SingleTableInheritance\SingleTableInheritanceTrait;
 
 class Character extends Model
 {
-    use CharacterSkillsTrait;
     use SingleTableInheritanceTrait;
     use SearchableTrait;
     use FilterableTrait;
@@ -87,13 +86,20 @@ class Character extends Model
         );
     }
 
+    public function abilities()
+    {
+        return $this->hasMany(
+            CharacterAbility::class,
+            'character_id'
+        )->with('ability');
+    }
+
     public function skills()
     {
-        return $this->belongsToMany(
-            Skill::class,
-            'character_skills',
+        return $this->hasMany(
+            CharacterSkill::class,
             'character_id'
-        )->withPivot('bonus');
+        )->with('skill');
     }
 
     public function actions()
@@ -116,38 +122,32 @@ class Character extends Model
      *
      */
 
-    public function getAbilityModifiersAttribute()
+    public function setAbilitiesAttribute(array $ability_codes = [])
     {
-        return Arr::only(
-            $this->toArray(),
-            [
-                'speed',
-                'strength',
-                'dexterity',
-                'constitution',
-                'intelligence',
-                'wisdom',
-                'charisma',
-            ]
-        );
+        $character_abilities = [];
+
+        foreach ($ability_codes as $code => $score) {
+            $character_abilities[] = new CharacterAbility([
+                'ability' => $code,
+                'score' => $score,
+            ]);
+        }
+
+        $this->abilities()->saveMany($character_abilities);
     }
 
-    public function setAbilitiesAttribute($value)
+    public function setSkillsAttribute(array $skill_codes = [])
     {
-        $this->fill(
-            Arr::only(
-                $value,
-                [
-                    'speed',
-                    'strength',
-                    'dexterity',
-                    'constitution',
-                    'intelligence',
-                    'wisdom',
-                    'charisma',
-                ]
-            )
-        );
+        $character_skills = [];
+
+        foreach ($skill_codes as $code => $bonus) {
+            $character_skills[] = new CharacterSkill([
+                'skill' => $code,
+                'bonus' => $bonus,
+            ]);
+        }
+
+        $this->skills()->saveMany($character_skills);
     }
 
     public function getAverageHpAttribute()
@@ -155,50 +155,6 @@ class Character extends Model
         $min = $this->hp_dice_count;
         $max = $this->hp_dice_count * $this->hp_dice->sides;
         return $this->base_hp + (int) floor($min + (($max - $min) / 2));
-    }
-
-    public function getStrengthModifierAttribute()
-    {
-        return $this->abilityScoreToModifier($this->strength);
-    }
-
-    public function getDexterityModifierAttribute()
-    {
-        return $this->abilityScoreToModifier($this->dexterity);
-    }
-
-    public function getConstitutionModifierAttribute()
-    {
-        return $this->abilityScoreToModifier($this->constitution);
-    }
-
-    public function getIntelligenceModifierAttribute()
-    {
-        return $this->abilityScoreToModifier($this->intelligence);
-    }
-
-    public function getWisdomModifierAttribute()
-    {
-        return $this->abilityScoreToModifier($this->wisdom);
-    }
-
-    public function getCharismaModifierAttribute()
-    {
-        return $this->abilityScoreToModifier($this->charisma);
-    }
-
-    private function abilityScoreToModifier($ability_score)
-    {
-        return (int) floor(($ability_score - 10) / 2);
-    }
-
-    public function getSkillBonus(string $skill_name)
-    {
-        $skill = $this->skills()
-            ->where('code', $skill_name)
-            ->first();
-
-        return $skill ? $skill->pivot->bonus : 0;
     }
 
     public function getArmorClassAttribute()
