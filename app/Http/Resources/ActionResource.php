@@ -11,9 +11,8 @@ class ActionResource extends JsonResource
         return [
             'name' => $this->name,
             'type' => $this->type,
-            'dice' => $this->dice->sides,
-            'dice_count' => $this->dice_count,
-            'as_string' => $this->dice_as_string()
+//            'dice' => $this->dice->sides,
+//            'dice_count' => $this->dice_count,
         ];
     }
 }
