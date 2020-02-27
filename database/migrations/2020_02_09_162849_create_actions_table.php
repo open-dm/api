@@ -22,7 +22,7 @@ class CreateActionsTable extends Migration
             $table->integer('bonus')->default(0);
             $table->integer('hit_bonus')->default(0);
             $table->string('description')->nullable();
-            $table->boolean('consumes_item_id')->nullable();
+            $table->bigInteger('consumes_item_id')->nullable();
             $table->bigInteger('object_id');
             $table->string('object_type');
         });
