@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Items\Modifier;
 use Illuminate\Database\Seeder;
 
 use App\Models\Items\Item;
@@ -98,7 +99,7 @@ class ArmorSeeder extends Seeder
          *
          */
 
-        Item::create([
+        $item = Item::create([
             'name'       => 'Hide',
             'code'       => 'hide',
             'cost'       => 10,
@@ -106,6 +107,24 @@ class ArmorSeeder extends Seeder
             'type_id'    => $armor_item_type->id,
             'subtype_id' => $medium_item_subtype->id,
         ]);
+
+        $modifier = new Modifier([
+            'type'  => 'stat',
+            'code'  => 'armor_class',
+            'bonus' => 2
+        ]);
+        $modifier->parent()->associate($item);
+        $modifier->save();
+
+        $modifier = new Modifier([
+            'type'  => 'stat',
+            'code'  => 'armor_class',
+            'bonus' => 'abilities.dexterity.modifier',
+            'max'   => 2,
+        ]);
+        $modifier->parent()->associate($item);
+        $modifier->save();
+
 
         Item::create([
             'name'       => 'Chain Shirt',
