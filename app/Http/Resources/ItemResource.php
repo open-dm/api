@@ -11,7 +11,7 @@ class ItemResource extends JsonResource
         return [
             'name'     => $this->pivot->name ?? $this->name,
             'type'     => $this->type->code,
-            'subtype' => $this->subtype ? $this->subtype->code : null,
+            'subtype'  => $this->subtype ? $this->subtype->code : null,
             'quantity' => $this->pivot->quantity,
             'equipped' => !!$this->pivot->equipped,
             'weight'   => $this->weight,

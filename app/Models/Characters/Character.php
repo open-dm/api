@@ -20,9 +20,6 @@ use App\Traits\FilterableTrait;
 use Illuminate\Support\Arr;
 use Nanigans\SingleTableInheritance\SingleTableInheritanceTrait;
 
-/**
- * @property size
- */
 class Character extends Model
 {
     use SingleTableInheritanceTrait;

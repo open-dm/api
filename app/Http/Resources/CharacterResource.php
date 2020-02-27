@@ -33,7 +33,7 @@ class CharacterResource extends JsonResource
             'senses'       => SenseResource::collection($this->senses),
             'environments' => EnvironmentResource::collection($this->environments),
 
-            'items' => ItemResource::collection($this->items),
+            'items'   => ItemResource::collection($this->items),
             'actions' => ActionResource::collection($this->all_actions),
 
 //            'parent' => $this->parent->id,
