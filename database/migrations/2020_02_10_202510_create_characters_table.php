@@ -12,17 +12,16 @@ class CreateCharactersTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('type');
-            $table->integer('base_hp');
             $table->integer('speed');
-            $table->integer('hp_dice_count');
+            $table->integer('base_hit_points');
+            $table->integer('hit_point_dice_count');
             $table->boolean('is_template')->default(false);
 
             $table->integer('size_id');
             $table->integer('race_id');
             $table->integer('alignment_id')->nullable();
-            $table->integer('environment_id')->nullable();
             $table->integer('challenge_id')->nullable();
-            $table->integer('hp_dice_id');
+            $table->integer('hit_point_dice_id');
             $table->integer('parent_character_id')->nullable();
 
             $table->timestamps();
@@ -31,25 +30,32 @@ class CreateCharactersTable extends Migration
         Schema::create('character_senses', function (Blueprint $table) {
             $table->integer('character_id');
             $table->integer('sense_id');
-            $table->integer('distance');
+            $table->integer('distance')->default(0);
         });
 
         Schema::create('character_abilities', function (Blueprint $table) {
             $table->integer('character_id');
             $table->integer('ability_id');
-            $table->integer('score');
+            $table->integer('score')->default(0);
         });
 
         Schema::create('character_skills', function (Blueprint $table) {
             $table->integer('character_id');
             $table->integer('skill_id');
-            $table->integer('bonus');
+            $table->integer('bonus')->default(0);
         });
 
         Schema::create('character_items', function (Blueprint $table) {
-            $table->integer('item_id');
             $table->integer('character_id');
-            $table->boolean('equipped');
+            $table->integer('item_id');
+            $table->boolean('equipped')->default(false);
+            $table->integer('quantity')->default(1);
+            $table->string('name')->nullable();
+        });
+
+        Schema::create('character_environments', function (Blueprint $table) {
+            $table->integer('character_id');
+            $table->integer('environment_id');
         });
     }
 
@@ -59,5 +65,6 @@ class CreateCharactersTable extends Migration
         Schema::dropIfExists('character_senses');
         Schema::dropIfExists('character_skills');
         Schema::dropIfExists('character_items');
+        Schema::dropIfExists('character_environments');
     }
 }

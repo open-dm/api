@@ -27,14 +27,16 @@ class Modifier extends Model
         $raw_bonus = $this->attributes['bonus'];
 
         if (is_numeric($raw_bonus)) {
-            return (int) $raw_bonus ?? 0;
+            return self::clampBonus((int) $raw_bonus);
         }
 
         if (is_string($raw_bonus)) {
-            return data_get(
-                $data,
-                $raw_bonus,
-                0
+            return self::clampBonus(
+                data_get(
+                    $data,
+                    $raw_bonus,
+                    0
+                )
             );
         }
 
@@ -51,11 +53,16 @@ class Modifier extends Model
      */
     public function apply_bonus(int $value, $data)
     {
+        return $value + $this->get_bonus($data);
+    }
+
+    protected function clampBonus($value)
+    {
         return max(
             $this->min ?? 0,
             min(
                 $this->max ?? INF,
-                $value + $this->get_bonus($data)
+                $value
             )
         );
     }

@@ -21,9 +21,13 @@ class Action extends Model
         return $this->belongsTo(Dice::class);
     }
 
-    public function dice_as_string()
+    public function setDiceAttribute($dice)
     {
-        return "{$this->dice_count}d{$this->dice->sides}";
+        $this->dice()->associate(
+            $dice instanceof Dice ?
+                $dice :
+                Dice::findByOrFail('sides', $dice)
+        );
     }
 
     public function getNameAttribute()
