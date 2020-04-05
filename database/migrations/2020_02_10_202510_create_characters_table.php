@@ -13,6 +13,7 @@ class CreateCharactersTable extends Migration
             $table->string('name');
             $table->string('type');
             $table->integer('speed');
+            $table->integer('hit_points')->nullable();
             $table->integer('base_hit_points');
             $table->integer('hit_point_dice_count');
             $table->boolean('is_template')->default(false);

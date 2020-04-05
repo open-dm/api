@@ -2,6 +2,9 @@
 
 namespace App\Models\Characters;
 
+use App\Events\CharacterDeleting;
+use App\Interfaces\ItemContainer;
+use App\Interfaces\Targetable;
 use App\Models\Core\CharacterAbility;
 use App\Models\Core\CharacterSkill;
 use App\Models\Core\Environment;
@@ -20,7 +23,7 @@ use App\Traits\FilterableTrait;
 use Illuminate\Support\Arr;
 use Nanigans\SingleTableInheritance\SingleTableInheritanceTrait;
 
-class Character extends Model
+class Character extends Model implements Targetable, ItemContainer
 {
     use SingleTableInheritanceTrait;
     use SearchableTrait;
@@ -35,16 +38,25 @@ class Character extends Model
 
     public $guarded = ['id'];
 
+    protected $dispatchesEvents = [
+        'deleting' => CharacterDeleting::class,
+    ];
+
     public $filterable_fields = [
         'alignment' => 'code',
         'size' => 'name',
     ];
+
+    public function applyAction(Action $action) {
+        dd($action);
+    }
 
     /**
      *
      * Belongs To Relations
      *
      */
+
     public function size()
     {
         return $this->belongsTo(Size::class);
@@ -70,6 +82,7 @@ class Character extends Model
      * Belongs To Many Relations
      *
      */
+
     public function languages()
     {
         return $this->belongsToMany(
@@ -102,6 +115,7 @@ class Character extends Model
      * Has Many Relations
      *
      */
+
     public function abilities()
     {
         return $this
@@ -133,6 +147,7 @@ class Character extends Model
      * Relation Setters
      *
      */
+
     public function setSizeAttribute($size) {
         if ($size) {
             $this->size()->associate(
@@ -265,7 +280,7 @@ class Character extends Model
         $this->skills()->saveMany($character_skills);
     }
 
-    public function setActionsAttribute(array$actions = []) {
+    public function setActionsAttribute(array $actions = []) {
         $this->actions()
             ->saveMany(Arr::map(
                 $actions,
@@ -375,5 +390,126 @@ class Character extends Model
                     ->pluck('actions')
                     ->collapse()
             );
+    }
+
+    /**
+     *
+     * Static Methods
+     *
+     */
+
+    /**
+     * Creates a new character using another character as a template
+     *
+     * @param Character $template   Template character to use
+     * @param array     $properties Character properties to override
+     *
+     * @return Character
+     */
+    public static function fromTemplate(
+        Character $template,
+        array     $properties = []
+    ) {
+        $character_class = get_class($template);
+
+        $character = new $character_class(
+            Arr::merge(
+                $template->only([
+                    'name',
+                    'speed',
+                    'size',
+                    'race',
+                    'alignment',
+                    'challenge',
+                    'base_hit_points',
+                    'hit_point_dice',
+                    'hit_point_dice_count',
+                ]),
+                [
+                    'is_template' => false,
+                ],
+                $properties
+            )
+        );
+
+        $character->save();
+
+        $character->abilities = $template
+            ->abilities
+            ->mapWithKeys(function ($character_ability) {
+                return [
+                    $character_ability->ability->code => $character_ability->score,
+                ];
+            })
+            ->toArray();
+
+        $character->skills = $template
+            ->skills
+            ->mapWithKeys(function ($character_skill) {
+                return [
+                    $character_skill->skill->code => $character_skill->bonus,
+                ];
+            })
+            ->toArray();
+
+        $character->items = $template
+            ->items
+            ->mapWithKeys(function ($item) {
+                return [
+                    $item->code => $item->pivot->only([
+                        'name',
+                        'equipped',
+                        'quantity',
+                    ])
+                ];
+            })
+            ->toArray();
+
+        $character->languages = $template
+            ->languages
+            ->pluck('code')
+            ->toArray();
+
+        $character->senses = $template
+            ->senses
+            ->mapWithKeys(function ($sense) {
+                return [
+                    $sense->code => $sense->pivot->distance
+                ];
+            })
+            ->toArray();
+
+        $character->environments = $template
+            ->environments
+            ->pluck('code')
+            ->toArray();
+
+        $character->actions = $template
+            ->actions
+            ->map(
+                function ($action) {
+                    return $action->only([
+                        'name',
+                        'type',
+                        'dice_count',
+                        'dice',
+                        'bonus',
+                        'hit_bonus',
+                    ]);
+                }
+            )
+            ->toArray();
+
+        return $character->fresh();
+    }
+
+    /**
+     *
+     * Methods
+     *
+     */
+    public function rollHitPoints()
+    {
+        return $this->base_hit_points + $this->hit_point_dice->roll($this->hit_point_dice_count);
     }
 }

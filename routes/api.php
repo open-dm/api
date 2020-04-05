@@ -3,6 +3,8 @@
 use App\Models\Characters\Character;
 use App\Models\Characters\Monster;
 use App\Models\Characters\Player;
+use App\Models\Items\Action;
+use App\Models\Items\Item;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,18 +23,31 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::middleware('api')
+    ->get('/test', 'TestController@test');
+
 Route
     ::middleware('api')
+    ->prefix('character')
     ->group(function () {
         Route::model('character', Character::class);
+        Route::model('target', Character::class);
+        Route::model('action', Action::class);
+        Route::model('item', Item::class);
 
-        Route::post('/character/create/', 'Api\CharacterController@create');
-        Route::post('/character/update/{character}/', 'Api\CharacterController@update');
-        Route::delete('/character/delete/{character}/', 'Api\CharacterController@delete');
+        Route::get('/list/', 'Api\CharacterController@list');
+        Route::get('/actions/{character}/', 'Api\CharacterController@actions');
 
-        Route::get('/character/retrieve/{character}/', 'Api\CharacterController@retrieve');
-        Route::get('/character/list/', 'Api\CharacterController@list');
-        Route::get('/character/actions/{character}/', 'Api\CharacterController@actions');
+        Route::post('/create/', 'Api\CharacterController@create');
+        Route::post('/update/{character}/', 'Api\CharacterController@update');
+        Route::delete('/delete/{character}/', 'Api\CharacterController@delete');
+        Route::get('/retrieve/{character}/', 'Api\CharacterController@retrieve');
+
+        Route::post('/give/{character}/{item}/{quantity?}/', 'Api\CharacterController@give');
+        Route::post('/take/{character}/{item}/{quantity?}/', 'Api\CharacterController@take');
+        Route::post('/give/{character}/{item}/{quantity?}/to/{target}/', 'Api\CharacterController@giveTo');
+        Route::post('/take/{character}/{item}/{quantity?}/from/{target}/', 'Api\CharacterController@take');
+        Route::post('/action/{character}/{action}/{target}/', 'Api\CharacterController@action');
     });
 
 Route
