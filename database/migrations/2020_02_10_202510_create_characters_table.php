@@ -45,14 +45,6 @@ class CreateCharactersTable extends Migration
             $table->integer('bonus')->default(0);
         });
 
-        Schema::create('character_items', function (Blueprint $table) {
-            $table->integer('character_id');
-            $table->integer('item_id');
-            $table->boolean('equipped')->default(false);
-            $table->integer('quantity')->default(1);
-            $table->string('name')->nullable();
-        });
-
         Schema::create('character_environments', function (Blueprint $table) {
             $table->integer('character_id');
             $table->integer('environment_id');
@@ -64,7 +56,6 @@ class CreateCharactersTable extends Migration
         Schema::dropIfExists('characters');
         Schema::dropIfExists('character_senses');
         Schema::dropIfExists('character_skills');
-        Schema::dropIfExists('character_items');
         Schema::dropIfExists('character_environments');
     }
 }
