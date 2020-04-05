@@ -13,7 +13,7 @@ use App\Models\Items\Action;
 use App\Models\Items\Item;
 use App\Models\Language\Language;
 use App\Sense;
-use App\Traits\ItemsTrait;
+use App\Traits\ModelItemContainerTrait;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\SearchableTrait;
 use App\Traits\FilterableTrait;
@@ -25,7 +25,7 @@ class Character extends Model
     use SingleTableInheritanceTrait;
     use SearchableTrait;
     use FilterableTrait;
-    use ItemsTrait;
+    use ModelItemContainerTrait;
 
     protected $table = 'characters';
 
@@ -77,23 +77,6 @@ class Character extends Model
             'character_languages',
             'character_id'
         );
-    }
-
-    public function items()
-    {
-        return $this
-            ->belongsToMany(
-                Item::class,
-                'character_items',
-                'character_id'
-            )
-            ->withPivot(
-                [
-                    'equipped',
-                    'quantity',
-                    'name',
-                ]
-            );
     }
 
     public function senses()

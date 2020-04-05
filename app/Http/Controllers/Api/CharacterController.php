@@ -15,6 +15,7 @@ use App\Models\Core\CharacterAbility;
 use App\Models\Core\Dice;
 use App\Models\Core\Race;
 use App\Models\Core\Size;
+use App\Models\Items\Item;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 
@@ -132,5 +133,34 @@ class CharacterController extends ApiController
                     )
             )
         );
+    }
+
+    // /give/{character}/{item}/{:quantity}/to/{target}/
+    public function give(
+        Character $character,
+        Item $item,
+        int $quantity = 1
+    ) {
+        $character->give(
+            $item,
+            $quantity
+        );
+
+        return response('Give Item');
+    }
+
+    public function giveTo(
+        Character $character,
+        Character $target,
+        Item $item,
+        int $quantity = 1
+    ) {
+        $character->giveTo(
+            $item,
+            $target,
+            $quantity
+        );
+
+        return response('Gave Item');
     }
 }

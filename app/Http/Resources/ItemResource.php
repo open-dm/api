@@ -8,14 +8,20 @@ class ItemResource extends JsonResource
 {
     public function toArray($request)
     {
-        return [
-            'name'     => $this->pivot->name ?? $this->name,
+        $output = [
+            'name'     => $this->name,
             'type'     => $this->type->code,
-            'subtype'  => $this->subtype ? $this->subtype->code : null,
-            'quantity' => $this->pivot->quantity,
-            'equipped' => !!$this->pivot->equipped,
+            'subtype'  => null,
+            'quantity' => $this->quantity,
+            'equipped' => $this->equipped,
             'weight'   => $this->weight,
             'cost'     => $this->cost,
         ];
+
+        if ($this->subtype) {
+            $output['subtype'] = $this->subtype->code;
+        }
+
+        return $output;
     }
 }
