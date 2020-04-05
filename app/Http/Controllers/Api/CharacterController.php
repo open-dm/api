@@ -2,32 +2,40 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Requests\CreateCharacterRequest;
-use App\Http\Requests\UpdateCharacterRequest;
-use App\Http\Resources\ActionResource;
-use App\Http\Resources\CharacterAbilityResource;
-use App\Http\Resources\CharacterResource;
-use App\Http\Resources\CharacterSkillResource;
-use App\Models\Characters\Character;
-use App\Models\Core\Ability;
-use App\Models\Core\Alignment;
-use App\Models\Core\CharacterAbility;
+use Exception;
+
+use Illuminate\Support\Arr;
+use Illuminate\Http\Response;
+
 use App\Models\Core\Dice;
 use App\Models\Core\Race;
 use App\Models\Core\Size;
-use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
+use App\Models\Core\Alignment;
+use App\Models\Characters\Character;
+
+use App\Http\Resources\ActionResource;
+
+use App\Http\Resources\CharacterResource;
+use App\Http\Requests\CreateCharacterRequest;
+use App\Http\Requests\UpdateCharacterRequest;
 
 class CharacterController extends ApiController
 {
     public $model_class    = Character::class;
     public $resource_class = CharacterResource::class;
 
+    /**
+     * Create a new Character instance
+     *
+     * @param CreateCharacterRequest $request
+     *
+     * @return Response
+     */
     public function create(CreateCharacterRequest $request)
     {
         $data = $request->validated();
 
-        $character = new static::$character_class(
+        $character = new $this->$model_class(
             Arr::only(
                 $data,
                 [
@@ -53,19 +61,23 @@ class CharacterController extends ApiController
             Alignment::findByCode(Arr::get($data, 'alignment'))
         );
 
-//        $character->languages()->associate(
-//            Alignment::findByCode(Arr::get($data, 'alignment'))
-//        );
-
         $character->hp_dice()->associate(
             Dice::findBy('sides', Arr::get($data, 'hp_dice'))
         );
 
         $character->save();
 
-        return response(static::$character_resource::make($character));
+        return response($this->resource_class::make($character));
     }
 
+    /**
+     * Update defined attributes on the character object
+     *
+     * @param UpdateCharacterRequest $request
+     * @param Character $character
+     *
+     * @return Response
+     */
     public function update(UpdateCharacterRequest $request, Character $character)
     {
         $data = $request->validated();
@@ -80,9 +92,6 @@ class CharacterController extends ApiController
                 ]
             )
         );
-
-//        $character->base_hp = 10;
-//        $character->hp_dice_count = 10;
 
         if (Arr::has($data, 'race')) {
             $character->race()->associate(
@@ -110,14 +119,28 @@ class CharacterController extends ApiController
 
         $character->save();
 
-        return response(static::$character_resource::make($character));
+        return response($this->resource_class::make($character));
     }
 
+    /**
+     * @param Character $character
+     *
+     * @return void
+     *
+     * @throws Exception
+     */
     public function delete(Character $character)
     {
         $character->delete();
     }
 
+    /**
+     * List a Characters available actions
+     *
+     * @param Character $character
+     *
+     * @return Response
+     */
     public function actions(Character $character)
     {
         return response(
