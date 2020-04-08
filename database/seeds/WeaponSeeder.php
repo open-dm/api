@@ -215,7 +215,7 @@ class WeaponSeeder extends Seeder
             'cost'       => 10,
             'weight'     => 4,
             'type_id'    => $weapon_item_type->id,
-            'subtype_id' => $simple_ranged_item_subtype->id,
+            'subtype_id' => $martial_melee_item_subtype->id,
         ]);
 
         Item::create([
@@ -224,7 +224,7 @@ class WeaponSeeder extends Seeder
             'cost'       => 10,
             'weight'     => 2,
             'type_id'    => $weapon_item_type->id,
-            'subtype_id' => $simple_ranged_item_subtype->id,
+            'subtype_id' => $martial_melee_item_subtype->id,
         ]);
 
         Item::create([
@@ -233,7 +233,7 @@ class WeaponSeeder extends Seeder
             'cost'       => 20,
             'weight'     => 6,
             'type_id'    => $weapon_item_type->id,
-            'subtype_id' => $simple_ranged_item_subtype->id,
+            'subtype_id' => $martial_melee_item_subtype->id,
         ]);
 
         $item = Item::create([
@@ -242,7 +242,7 @@ class WeaponSeeder extends Seeder
             'cost'       => 30,
             'weight'     => 7,
             'type_id'    => $weapon_item_type->id,
-            'subtype_id' => $simple_ranged_item_subtype->id,
+            'subtype_id' => $martial_melee_item_subtype->id,
         ]);
         $action = new Action([
             'type' => 'damage',
@@ -257,7 +257,7 @@ class WeaponSeeder extends Seeder
             'cost'       => 50,
             'weight'     => 6,
             'type_id'    => $weapon_item_type->id,
-            'subtype_id' => $simple_ranged_item_subtype->id,
+            'subtype_id' => $martial_melee_item_subtype->id,
         ]);
 
         Item::create([
@@ -266,7 +266,7 @@ class WeaponSeeder extends Seeder
             'cost'       => 20,
             'weight'     => 6,
             'type_id'    => $weapon_item_type->id,
-            'subtype_id' => $simple_ranged_item_subtype->id,
+            'subtype_id' => $martial_melee_item_subtype->id,
         ]);
 
         Item::create([
@@ -275,7 +275,7 @@ class WeaponSeeder extends Seeder
             'cost'       => 10,
             'weight'     => 6,
             'type_id'    => $weapon_item_type->id,
-            'subtype_id' => $simple_ranged_item_subtype->id,
+            'subtype_id' => $martial_melee_item_subtype->id,
         ]);
 
         Item::create([
@@ -284,7 +284,7 @@ class WeaponSeeder extends Seeder
             'cost'       => 15,
             'weight'     => 3,
             'type_id'    => $weapon_item_type->id,
-            'subtype_id' => $simple_ranged_item_subtype->id,
+            'subtype_id' => $martial_melee_item_subtype->id,
         ]);
 
         Item::create([
@@ -293,7 +293,7 @@ class WeaponSeeder extends Seeder
             'cost'       => 10,
             'weight'     => 10,
             'type_id'    => $weapon_item_type->id,
-            'subtype_id' => $simple_ranged_item_subtype->id,
+            'subtype_id' => $martial_melee_item_subtype->id,
         ]);
 
         Item::create([
@@ -302,7 +302,7 @@ class WeaponSeeder extends Seeder
             'cost'       => 15,
             'weight'     => 4,
             'type_id'    => $weapon_item_type->id,
-            'subtype_id' => $simple_ranged_item_subtype->id,
+            'subtype_id' => $martial_melee_item_subtype->id,
         ]);
 
         Item::create([
@@ -311,7 +311,7 @@ class WeaponSeeder extends Seeder
             'cost'       => 5,
             'weight'     => 18,
             'type_id'    => $weapon_item_type->id,
-            'subtype_id' => $simple_ranged_item_subtype->id,
+            'subtype_id' => $martial_melee_item_subtype->id,
         ]);
 
         Item::create([
@@ -320,7 +320,7 @@ class WeaponSeeder extends Seeder
             'cost'       => 25,
             'weight'     => 2,
             'type_id'    => $weapon_item_type->id,
-            'subtype_id' => $simple_ranged_item_subtype->id,
+            'subtype_id' => $martial_melee_item_subtype->id,
         ]);
 
         Item::create([
@@ -329,7 +329,7 @@ class WeaponSeeder extends Seeder
             'cost'       => 25,
             'weight'     => 3,
             'type_id'    => $weapon_item_type->id,
-            'subtype_id' => $simple_ranged_item_subtype->id,
+            'subtype_id' => $martial_melee_item_subtype->id,
         ]);
 
         Item::create([
@@ -338,7 +338,7 @@ class WeaponSeeder extends Seeder
             'cost'       => 10,
             'weight'     => 2,
             'type_id'    => $weapon_item_type->id,
-            'subtype_id' => $simple_ranged_item_subtype->id,
+            'subtype_id' => $martial_melee_item_subtype->id,
         ]);
 
         Item::create([
@@ -347,7 +347,7 @@ class WeaponSeeder extends Seeder
             'cost'       => 5,
             'weight'     => 4,
             'type_id'    => $weapon_item_type->id,
-            'subtype_id' => $simple_ranged_item_subtype->id,
+            'subtype_id' => $martial_melee_item_subtype->id,
         ]);
 
         Item::create([
@@ -356,7 +356,7 @@ class WeaponSeeder extends Seeder
             'cost'       => 5,
             'weight'     => 2,
             'type_id'    => $weapon_item_type->id,
-            'subtype_id' => $simple_ranged_item_subtype->id,
+            'subtype_id' => $martial_melee_item_subtype->id,
         ]);
 
         Item::create([
@@ -365,7 +365,7 @@ class WeaponSeeder extends Seeder
             'cost'       => 15,
             'weight'     => 2,
             'type_id'    => $weapon_item_type->id,
-            'subtype_id' => $simple_ranged_item_subtype->id,
+            'subtype_id' => $martial_melee_item_subtype->id,
         ]);
 
         Item::create([
@@ -374,7 +374,7 @@ class WeaponSeeder extends Seeder
             'cost'       => 2,
             'weight'     => 3,
             'type_id'    => $weapon_item_type->id,
-            'subtype_id' => $simple_ranged_item_subtype->id,
+            'subtype_id' => $martial_melee_item_subtype->id,
         ]);
 
 
@@ -390,7 +390,7 @@ class WeaponSeeder extends Seeder
             'cost'       => 75,
             'weight'     => 3,
             'type_id'    => $weapon_item_type->id,
-            'subtype_id' => $simple_ranged_item_subtype->id,
+            'subtype_id' => $martial_ranged_item_subtype->id,
         ]);
 
         Item::create([
@@ -399,7 +399,7 @@ class WeaponSeeder extends Seeder
             'cost'       => 50,
             'weight'     => 18,
             'type_id'    => $weapon_item_type->id,
-            'subtype_id' => $simple_ranged_item_subtype->id,
+            'subtype_id' => $martial_ranged_item_subtype->id,
         ]);
 
         Item::create([
@@ -408,7 +408,7 @@ class WeaponSeeder extends Seeder
             'cost'       => 50,
             'weight'     => 2,
             'type_id'    => $weapon_item_type->id,
-            'subtype_id' => $simple_ranged_item_subtype->id,
+            'subtype_id' => $martial_ranged_item_subtype->id,
         ]);
     }
 }

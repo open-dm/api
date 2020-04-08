@@ -2,6 +2,7 @@
 
 namespace App\Models\Items;
 
+use App\Interfaces\Targetable;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Core\Dice;
 
@@ -9,7 +10,16 @@ class Action extends Model
 {
     protected $table = 'actions';
 
+    public $guarded = ['id'];
+
     public $timestamps = false;
+
+    public static function run(
+        Targetable $target,
+        Action $action
+    ) {
+        dd('Running action on', $target, $action);
+    }
 
     public function parent()
     {
@@ -23,11 +33,13 @@ class Action extends Model
 
     public function setDiceAttribute($dice)
     {
-        $this->dice()->associate(
-            $dice instanceof Dice ?
-                $dice :
-                Dice::findByOrFail('sides', $dice)
-        );
+        if ($dice) {
+            $this->dice()->associate(
+                $dice instanceof Dice ?
+                    $dice :
+                    Dice::findByOrFail('sides', $dice)
+            );
+        }
     }
 
     public function getNameAttribute()

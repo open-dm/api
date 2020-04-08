@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Api;
 use Exception;
 
 use Illuminate\Support\Arr;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 use App\Models\Core\Dice;
 use App\Models\Core\Race;
 use App\Models\Core\Size;
+use App\Models\Items\Item;
 use App\Models\Core\Alignment;
 use App\Models\Characters\Character;
 
@@ -60,6 +62,10 @@ class CharacterController extends ApiController
         $character->alignment()->associate(
             Alignment::findByCode(Arr::get($data, 'alignment'))
         );
+
+//        $character->languages()->associate(
+//            Alignment::findByCode(Arr::get($data, 'alignment'))
+//        );
 
         $character->hp_dice()->associate(
             Dice::findBy('sides', Arr::get($data, 'hp_dice'))
@@ -155,5 +161,34 @@ class CharacterController extends ApiController
                     )
             )
         );
+    }
+
+    // /give/{character}/{item}/{:quantity}/to/{target}/
+    public function give(
+        Character $character,
+        Item $item,
+        int $quantity = 1
+    ) {
+        $character->give(
+            $item,
+            $quantity
+        );
+
+        return response('Give Item');
+    }
+
+    public function giveTo(
+        Character $character,
+        Character $target,
+        Item $item,
+        int $quantity = 1
+    ) {
+        $character->giveTo(
+            $item,
+            $target,
+            $quantity
+        );
+
+        return response('Gave Item');
     }
 }

@@ -41,7 +41,6 @@ class OrcSeeder extends CharacterSeeder
                 'equipped' => true,
             ],
             'great_axe' => [
-                'name'     => 'Smash',
                 'equipped' => true,
             ],
             'javelin' => [

@@ -9,6 +9,7 @@ class ActionResource extends JsonResource
     public function toArray($request)
     {
         $result = [
+            'id'          => $this->id,
             'name'        => $this->name,
             'description' => $this->description,
             'type'        => $this->type,
