@@ -23,8 +23,8 @@ use App\Http\Requests\UpdateCharacterRequest;
 
 class CharacterController extends ApiController
 {
-    public $model_class    = Character::class;
-    public $resource_class = CharacterResource::class;
+    public static $model_class    = Character::class;
+    public static $resource_class = CharacterResource::class;
 
     /**
      * Create a new Character instance
@@ -37,19 +37,19 @@ class CharacterController extends ApiController
     {
         $data = $request->validated();
 
-        $character = new $this->$model_class(
+        $character = new self::$model_class(
             Arr::only(
                 $data,
                 [
                     'name',
                     'type',
-                    'abilities',
+                    'speed',
                 ]
             )
         );
 
-        $character->base_hp = 10;
-        $character->hp_dice_count = 10;
+        $character->base_hit_points = 10;
+        $character->hit_point_dice_count = 10;
 
         $character->race()->associate(
             Race::findByCode(Arr::get($data, 'race'))
@@ -67,13 +67,15 @@ class CharacterController extends ApiController
 //            Alignment::findByCode(Arr::get($data, 'alignment'))
 //        );
 
-        $character->hp_dice()->associate(
-            Dice::findBy('sides', Arr::get($data, 'hp_dice'))
+        $character->hit_point_dice()->associate(
+            Dice::findBy('sides', Arr::get($data, 'hit_point_dice'))
         );
 
         $character->save();
 
-        return response($this->resource_class::make($character));
+        $character->abilities = Arr::get($data, 'abilities');
+
+        return response(self::$resource_class::make($character));
     }
 
     /**
@@ -117,15 +119,15 @@ class CharacterController extends ApiController
             );
         }
 
-        if (Arr::has($data, 'hp_dice')) {
-            $character->hp_dice()->associate(
-                Dice::findBy('sides', Arr::get($data, 'hp_dice'))
+        if (Arr::has($data, 'hit_point_dice')) {
+            $character->hit_point_dice()->associate(
+                Dice::findBy('sides', Arr::get($data, 'hit_point_dice'))
             );
         }
 
         $character->save();
 
-        return response($this->resource_class::make($character));
+        return response(self::$resource_class::make($character));
     }
 
     /**
