@@ -254,16 +254,18 @@ class Character extends Model implements Targetable, ItemContainer
 
     public function setAbilitiesAttribute(array $ability_codes = [])
     {
-        $character_abilities = [];
-
-        foreach ($ability_codes as $code => $score) {
-            $character_abilities[] = new CharacterAbility([
-                'ability' => $code,
-                'score' => $score,
-            ]);
-        }
-
-        $this->abilities()->saveMany($character_abilities);
+        $this->abilities()
+            ->saveMany(
+                Arr::map(
+                    $ability_codes,
+                    function ($score, $code) {
+                        return new CharacterAbility([
+                            'ability' => $code,
+                            'score' => $score,
+                        ]);
+                    }
+                )
+            );
     }
 
     public function setSkillsAttribute(array $skill_codes = [])

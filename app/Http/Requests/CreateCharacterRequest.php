@@ -18,10 +18,10 @@ class CreateCharacterRequest extends FormRequest
             'size'      => 'required|string|exists:sizes,code',
             'race'      => 'required|string|exists:races,code',
             'alignment' => 'required|string|exists:alignments,code',
+            'speed'     => 'required|integer|min:0',
 
-            'hp_dice'   => 'required|integer|exists:dice,sides',
+            'hit_point_dice'   => 'required|integer|exists:dice,sides',
 
-            'abilities.speed'        => 'required|integer|min:0',
             'abilities.strength'     => 'required|integer|min:0',
             'abilities.dexterity'    => 'required|integer|min:0',
             'abilities.constitution' => 'required|integer|min:0',

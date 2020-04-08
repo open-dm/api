@@ -7,6 +7,6 @@ use App\Models\Characters\Monster;
 
 class MonsterController extends CharacterController
 {
-    public $model_class    = Monster::class;
-    public $resource_class = CharacterResource::class;
+    public static $model_class    = Monster::class;
+    public static $resource_class = CharacterResource::class;
 }
