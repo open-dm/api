@@ -337,7 +337,7 @@ class Character extends Model implements Targetable, ItemContainer
             ->whereHas('type', function ($type) {
                 $type->where('code', 'armor');
             })
-            ->where('character_items.equipped', true)
+            ->wherePivot('equipped', true)
             ->whereDoesntHave('subtype', function ($subtype) {
                 $subtype->where('code', 'shield');
             })
@@ -364,7 +364,7 @@ class Character extends Model implements Targetable, ItemContainer
             ->whereHas('type', function ($type) {
                 $type->where('code', 'weapon');
             })
-            ->where('character_items.equipped', true)
+            ->wherePivot('equipped', true)
             ->get();
     }
 
